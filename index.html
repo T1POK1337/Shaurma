@@ -1,0 +1,2371 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ШАШЛЫК & ШАУРМА — Премиум Гастро-Гриль | г. Чехов, Вокзальная площадь</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Three.js for Real-Time 3D Interactive Background -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Google Fonts: Unbounded for luxury bold headings & Plus Jakarta Sans / Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Unbounded', 'sans-serif'],
+                    },
+                    colors: {
+                        ruby: {
+                            950: '#140307',
+                            900: '#23050d',
+                            800: '#380816',
+                        },
+                        flame: {
+                            400: '#ff6b2b',
+                            500: '#ff3b00',
+                            600: '#e60039',
+                        },
+                        gold: {
+                            300: '#ffe066',
+                            400: '#ffbe0b',
+                            500: '#fb8500',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Rich Luxury Gastro-Grill Theme */
+        :root {
+            --glow-primary: #ff3b00;
+            --glow-gold: #ffbe0b;
+            --glow-crimson: #ff0055;
+        }
+
+        body {
+            background: radial-gradient(circle at 50% 0%, #3d0919 0%, #1a040a 50%, #0d0206 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Fullscreen Interactive 3D Canvas */
+        #bg3dCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Ambient Luxury Neon Orbs */
+        .ambient-orb-1 {
+            position: fixed;
+            top: -15%;
+            right: -10%;
+            width: 650px;
+            height: 650px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 59, 0, 0.28) 0%, rgba(255, 0, 85, 0.12) 45%, transparent 70%);
+            filter: blur(70px);
+            z-index: 0;
+            pointer-events: none;
+            animation: pulseOrb 8s ease-in-out infinite alternate;
+        }
+
+        .ambient-orb-2 {
+            position: fixed;
+            bottom: -20%;
+            left: -10%;
+            width: 700px;
+            height: 700px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 190, 11, 0.22) 0%, rgba(255, 59, 0, 0.1) 50%, transparent 70%);
+            filter: blur(80px);
+            z-index: 0;
+            pointer-events: none;
+            animation: pulseOrb 10s ease-in-out infinite alternate-reverse;
+        }
+
+        @keyframes pulseOrb {
+            0% { transform: scale(1) translate(0, 0); opacity: 0.85; }
+            100% { transform: scale(1.18) translate(30px, -20px); opacity: 1; }
+        }
+
+        /* Faceted Crystal Glassmorphism */
+        .crystal-card {
+            background: linear-gradient(145deg, rgba(48, 12, 24, 0.72) 0%, rgba(24, 6, 13, 0.82) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 190, 11, 0.22);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+            transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.25s ease-out;
+        }
+
+        .crystal-card:hover {
+            border-color: rgba(255, 190, 11, 0.65);
+            box-shadow: 0 25px 60px rgba(255, 59, 0, 0.28), 0 0 25px rgba(255, 190, 11, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.35);
+        }
+
+        /* 3D Interactive Tilt Card */
+        .tilt-card {
+            transform-style: preserve-3d;
+            will-change: transform;
+            position: relative;
+        }
+
+        .tilt-glare {
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            pointer-events: none;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 224, 102, 0.22), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 20;
+        }
+
+        .tilt-card:hover .tilt-glare {
+            opacity: 1;
+        }
+
+        /* Luxury Navigation */
+        .luxury-nav {
+            background: linear-gradient(180deg, rgba(20, 3, 7, 0.92) 0%, rgba(28, 5, 12, 0.82) 100%);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(255, 190, 11, 0.25);
+            box-shadow: 0 10px 35px rgba(255, 59, 0, 0.15);
+        }
+
+        /* Liquid Fire & Gold Buttons */
+        .btn-liquid-fire {
+            background: linear-gradient(135deg, #ffbe0b 0%, #ff3b00 50%, #ff0055 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 4s ease infinite;
+            box-shadow: 0 10px 30px rgba(255, 59, 0, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.6);
+            transition: all 0.3s ease;
+        }
+
+        .btn-liquid-fire:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(255, 59, 0, 0.75), 0 0 25px rgba(255, 190, 11, 0.6);
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Luxury Gold Gradient Typography */
+        .text-gold-fire {
+            background: linear-gradient(135deg, #ffffff 0%, #ffe066 35%, #ff6b2b 75%, #ff0055 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 5px 20px rgba(255, 59, 0, 0.35));
+        }
+
+        .text-pure-gold {
+            background: linear-gradient(135deg, #fff3b0 0%, #ffbe0b 50%, #fb8500 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #140307;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #ffbe0b, #ff3b00);
+            border-radius: 5px;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* 3D Floating Ring Animation */
+        @keyframes spinSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .spin-slow {
+            animation: spinSlow 22s linear infinite;
+        }
+
+        /* Animated Steam & Levitation for Autonomous 3D Dish Illustrations */
+        @keyframes floatDish {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-6px) scale(1.03); }
+        }
+        .dish-float {
+            animation: floatDish 4s ease-in-out infinite;
+        }
+
+        @keyframes steamRise {
+            0% { transform: translateY(8px) scaleX(0.9); opacity: 0; }
+            50% { opacity: 0.65; }
+            100% { transform: translateY(-18px) scaleX(1.15); opacity: 0; }
+        }
+        .steam-path-1 { animation: steamRise 3s ease-in-out infinite; }
+        .steam-path-2 { animation: steamRise 3.4s ease-in-out 1.1s infinite; }
+        .steam-path-3 { animation: steamRise 2.8s ease-in-out 2s infinite; }
+    </style>
+</head>
+<body class="antialiased selection:bg-flame-500 selection:text-white relative">
+
+    <!-- 1. INTERACTIVE 3D WEBGL SCENE (THREE.JS) -->
+    <canvas id="bg3dCanvas"></canvas>
+    <div class="ambient-orb-1"></div>
+    <div class="ambient-orb-2"></div>
+
+    <!-- MAIN CONTENT WRAPPER -->
+    <div class="relative z-10">
+
+        <!-- TOP VIP STATUS BAR -->
+        <div class="bg-gradient-to-r from-ruby-950 via-ruby-800 to-ruby-950 border-b border-gold-400/25 text-xs py-2.5 px-4">
+            <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+                <div class="flex items-center gap-2.5">
+                    <span class="relative flex h-3 w-3">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold-400 opacity-90"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-gradient-to-tr from-flame-500 to-gold-300"></span>
+                    </span>
+                    <span class="text-gold-300 font-bold tracking-wide uppercase">Жар на максимум!</span>
+                    <span class="text-rose-100/80 hidden sm:inline">• Готовим мраморный шашлык и крафтовую шаурму на живых березовых углях</span>
+                </div>
+                <div class="flex items-center gap-4 text-rose-100">
+                    <span class="flex items-center gap-1.5 font-medium">
+                        <i class="ph-fill ph-map-pin text-gold-400 text-sm"></i>
+                        г. Чехов, Вокзальная пл. (1 мин от ж/д станции)
+                    </span>
+                    <span class="hidden md:flex items-center gap-1.5 bg-gradient-to-r from-gold-400/20 to-flame-500/20 text-gold-300 px-3 py-0.5 rounded-full border border-gold-400/40 font-bold shadow-sm">
+                        <i class="ph-fill ph-star text-gold-400"></i> 4.4 Яндекс Карты
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- STICKY LUXURY HEADER -->
+        <header class="sticky top-0 z-40 luxury-nav">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-22 py-3.5 flex items-center justify-between gap-4">
+                <!-- Brand Logo -->
+                <a href="#" class="flex items-center gap-3.5 group focus:outline-none">
+                    <div class="w-13 h-13 p-3 rounded-2xl btn-liquid-fire flex items-center justify-center group-hover:rotate-6 transition-transform">
+                        <i class="ph-fill ph-fire text-2xl text-white drop-shadow"></i>
+                    </div>
+                    <div>
+                        <span class="font-display text-lg sm:text-xl font-black tracking-wider text-white block leading-none">
+                            ШАШЛЫК <span class="text-pure-gold">&</span> ШАУРМА
+                        </span>
+                        <span class="text-[11px] text-gold-300/90 font-semibold tracking-widest uppercase flex items-center gap-1.5 mt-1">
+                            <i class="ph-fill ph-crown text-gold-400"></i> GASTRO GRILL • СТ. ЧЕХОВ
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden xl:flex items-center gap-7 text-sm font-bold text-rose-100/90">
+                    <a href="#menu" class="hover:text-gold-300 transition-colors">Огненное Меню</a>
+                    <a href="#constructor" class="hover:text-gold-300 transition-colors flex items-center gap-1.5">
+                        <span class="px-2 py-0.5 text-[10px] font-black bg-gradient-to-r from-gold-400 to-flame-500 text-ruby-950 rounded-full uppercase shadow">3D Крафт</span>
+                        Собрать Шаурму
+                    </a>
+                    <a href="#features" class="hover:text-gold-300 transition-colors">9 Фишек Кафе</a>
+                    <a href="#reviews" class="hover:text-gold-300 transition-colors">Отзывы (4.4 ★)</a>
+                    <a href="#contacts" class="hover:text-gold-300 transition-colors">Локация</a>
+                </nav>
+
+                <!-- Action Buttons -->
+                <div class="flex items-center gap-3">
+                    <a href="tel:+79251874705" class="hidden md:flex items-center gap-2.5 px-4 py-2.5 rounded-2xl crystal-card text-sm font-bold text-white hover:border-gold-400 transition-all">
+                        <span class="w-8 h-8 rounded-xl bg-gradient-to-br from-gold-400 to-flame-500 text-ruby-950 flex items-center justify-center">
+                            <i class="ph-fill ph-phone-call text-base"></i>
+                        </span>
+                        <span>+7 (925) 187-47-05</span>
+                    </a>
+
+                    <button onclick="toggleCart(true)" class="relative flex items-center gap-2.5 px-5 py-3 rounded-2xl btn-liquid-fire text-white font-display font-bold text-xs sm:text-sm tracking-wide">
+                        <i class="ph-bold ph-shopping-bag-open text-xl"></i>
+                        <span class="hidden sm:inline">Предзаказ</span>
+                        <span id="headerCartTotal" class="bg-ruby-950/85 text-gold-300 px-2.5 py-1 rounded-xl text-xs font-extrabold border border-gold-400/30">
+                            0 ₽
+                        </span>
+                        <span id="headerCartBadge" class="hidden absolute -top-2 -right-2 w-6 h-6 rounded-full bg-gold-300 text-ruby-950 text-xs font-black flex items-center justify-center shadow-lg border-2 border-ruby-950">
+                            0
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- HERO SECTION WITH 3D DEPTH & HOLOGRAPHIC SHOWCASE -->
+        <section class="relative pt-10 pb-20 md:py-24 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Left Column: Luxury Typography & Triggers -->
+                    <div class="lg:col-span-7 space-y-7 text-left">
+                        <div class="inline-flex flex-wrap items-center gap-2.5 px-4 py-2 rounded-full crystal-card border-gold-400/50 text-xs sm:text-sm font-bold">
+                            <span class="px-2 py-0.5 rounded-full bg-gradient-to-r from-gold-400 to-flame-500 text-ruby-950 font-black uppercase text-[10px]">TOP GASTRO</span>
+                            <span class="text-gold-300">Легендарный мангал-бар на Вокзальной площади</span>
+                        </div>
+
+                        <h1 class="font-display text-3xl sm:text-5xl xl:text-6xl font-black leading-[1.1] tracking-tight uppercase">
+                            ИСКУССТВО <br>
+                            <span class="text-gold-fire">ЖИВОГО ОГНЯ</span> <br>
+                            В КАЖДОМ КУСОЧКЕ
+                        </h1>
+
+                        <p class="text-rose-100/90 text-base sm:text-lg max-w-2xl leading-relaxed font-medium">
+                            Забудьте про обычный стрит-фуд. Мы обжариваем отборное фермерское мясо на раскаленных березовых углях, добавляем знаменитые авторские соусы шефа Александра и подаем горячим ровно к прибытию вашего поезда на ст. Чехов!
+                        </p>
+
+                        <!-- Primary Call to Actions -->
+                        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
+                            <a href="#menu" class="px-8 py-4 rounded-2xl btn-liquid-fire text-white font-display font-extrabold text-sm sm:text-base flex items-center justify-center gap-3 uppercase tracking-wider">
+                                <i class="ph-fill ph-fire text-2xl"></i>
+                                Открыть огненное меню
+                            </a>
+                            <a href="#constructor" class="px-7 py-4 rounded-2xl crystal-card hover:bg-white/10 text-gold-300 font-display font-bold text-sm sm:text-base flex items-center justify-center gap-2.5 transition-all">
+                                <i class="ph-bold ph-cube-transparent text-2xl text-flame-400"></i>
+                                3D-Конструктор шаурмы
+                            </a>
+                        </div>
+
+                        <!-- Interactive Train Express VIP Bar -->
+                        <div class="crystal-card rounded-3xl p-5 border-l-4 border-l-gold-400 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-gold-400 to-flame-500 text-ruby-950 flex items-center justify-center text-2xl shrink-0 shadow-lg">
+                                    <i class="ph-fill ph-train-regional"></i>
+                                </div>
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="font-display font-bold text-white text-sm sm:text-base">Подъезжаете к станции Чехов?</span>
+                                        <span class="px-2 py-0.5 rounded bg-emerald-500/25 border border-emerald-400/40 text-emerald-300 text-[10px] font-extrabold uppercase">Без очереди</span>
+                                    </div>
+                                    <p class="text-xs text-rose-100/80 mt-0.5">
+                                        Нажмите кнопку — мы снимем шашлык с шампура ровно к вашему выходу с перрона!
+                                    </p>
+                                </div>
+                            </div>
+                            <button onclick="openTrainPreorder()" class="w-full sm:w-auto px-5 py-3 rounded-xl bg-gradient-to-r from-gold-400 to-amber-500 text-ruby-950 font-display font-black text-xs uppercase tracking-wider hover:brightness-110 transition-all shrink-0 shadow-md">
+                                Заказать к поезду
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: 3D Interactive Showcase Card -->
+                    <div class="lg:col-span-5 relative">
+                        <div class="tilt-card crystal-card rounded-[2rem] p-6 sm:p-7 relative overflow-hidden group">
+                            <div class="tilt-glare"></div>
+
+                            <!-- Decorative Rotating Gold Ring -->
+                            <div class="absolute -top-24 -right-24 w-56 h-56 rounded-full border-2 border-dashed border-gold-400/30 spin-slow pointer-events-none"></div>
+
+                            <div class="flex items-center justify-between mb-4 relative z-10">
+                                <span class="px-3.5 py-1.5 rounded-full bg-gradient-to-r from-flame-500 to-rose-600 text-white text-xs font-extrabold uppercase tracking-wider flex items-center gap-1.5 shadow-lg">
+                                    <i class="ph-fill ph-lightning"></i> Выбор гурманов Чехова
+                                </span>
+                                <span class="text-xs font-bold text-gold-300 flex items-center gap-1">
+                                    <i class="ph-fill ph-flame text-flame-400"></i> 100% Березовые угли
+                                </span>
+                            </div>
+
+                            <!-- High-Contrast Autonomous 3D Dish Showcase (100% Guaranteed Render + Custom Photo Upload) -->
+                            <div class="relative rounded-2xl overflow-hidden aspect-[4/3] mb-6 border border-gold-400/40 shadow-2xl bg-gradient-to-b from-[#3a0a18] via-[#21040c] to-[#120206]">
+                                <div id="heroIllustrationContainer" class="w-full h-full flex items-center justify-center"></div>
+                                <div class="absolute inset-0 bg-gradient-to-t from-ruby-950 via-transparent to-transparent pointer-events-none"></div>
+
+                                <!-- Upload Real Photo Button for Hero -->
+                                <button onclick="triggerPhotoUpload('hero_showcase')" title="Загрузить реальное фото из галереи" class="absolute top-3 left-3 z-20 bg-ruby-950/85 hover:bg-gold-400 hover:text-ruby-950 text-gold-300 border border-gold-400/40 px-3 py-1.5 rounded-xl text-[11px] font-bold flex items-center gap-1.5 backdrop-blur-md transition-all shadow-lg">
+                                    <i class="ph-bold ph-camera text-sm"></i> Свое фото
+                                </button>
+
+                                <!-- Floating Price Tag -->
+                                <div class="absolute top-3 right-3 bg-ruby-950/90 backdrop-blur-md border border-gold-400/50 px-3.5 py-1.5 rounded-xl text-right shadow-xl">
+                                    <span class="text-[10px] text-rose-200 block uppercase font-bold">Фирменный комбо-хит</span>
+                                    <span class="font-display font-black text-lg text-gold-300">290 ₽</span>
+                                </div>
+
+                                <div class="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-2 pointer-events-none">
+                                    <div>
+                                        <span class="text-xs uppercase tracking-widest text-gold-400 font-extrabold block">Шеф-рецепт с дымком</span>
+                                        <h3 class="text-xl sm:text-2xl font-display font-black text-white leading-tight">Шаурма «Дымный Шеф» XXL</h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Dish Specs & Instant Buy -->
+                            <div class="grid grid-cols-3 gap-2.5 mb-5 text-center relative z-10">
+                                <div class="bg-ruby-950/70 p-2.5 rounded-xl border border-white/10">
+                                    <span class="text-xs font-extrabold text-gold-300 block">430 грамм</span>
+                                    <span class="text-[11px] text-rose-200/70">Честный вес</span>
+                                </div>
+                                <div class="bg-ruby-950/70 p-2.5 rounded-xl border border-white/10">
+                                    <span class="text-xs font-extrabold text-flame-400 block">Мясо с углей</span>
+                                    <span class="text-[11px] text-rose-200/70">Прямо с шампура</span>
+                                </div>
+                                <div class="bg-ruby-950/70 p-2.5 rounded-xl border border-white/10">
+                                    <span class="text-xs font-extrabold text-emerald-400 block">2 соуса шефа</span>
+                                    <span class="text-[11px] text-rose-200/70">Секретный крафт</span>
+                                </div>
+                            </div>
+
+                            <button onclick="quickAddHeroHit()" class="w-full py-4 rounded-2xl btn-liquid-fire text-white font-display font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2 relative z-10">
+                                <i class="ph-bold ph-plus-circle text-xl"></i>
+                                Добавить хит в заказ • 290 ₽
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- VIP 3D SHAWARMA CONSTRUCTOR -->
+        <section id="constructor" class="py-20 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+                    <div>
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-gold-400/15 border border-gold-400/40 text-gold-300 text-xs font-extrabold uppercase tracking-widest mb-3">
+                            <i class="ph-fill ph-sparkle"></i> Кастомизация вкуса
+                        </div>
+                        <h2 class="font-display text-2xl sm:text-4xl lg:text-5xl font-black text-white uppercase">
+                            СОБЕРИТЕ СВОЮ <span class="text-gold-fire">VIP-ШАУРМУ</span>
+                        </h2>
+                    </div>
+                    <p class="text-rose-100/80 text-sm max-w-md font-medium">
+                        Выбирайте хрустящий лаваш, вид шашлыка с мангала и легендарные соусы, которые гости называют «отдельной темой и настоящим шиком».
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    <!-- Left 8 Cols: Interactive Steps -->
+                    <div class="lg:col-span-8 space-y-6">
+                        
+                        <!-- Step 1: Lavash -->
+                        <div class="crystal-card rounded-3xl p-6">
+                            <h3 class="font-display text-base sm:text-lg font-bold text-white mb-4 flex items-center gap-3">
+                                <span class="w-8 h-8 rounded-xl btn-liquid-fire text-white font-black text-sm flex items-center justify-center">01</span>
+                                Выберите крафтовый лаваш (обжариваем на углях)
+                            </h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5" id="builderLavashGroup"></div>
+                        </div>
+
+                        <!-- Step 2: Charcoal Meat -->
+                        <div class="crystal-card rounded-3xl p-6">
+                            <h3 class="font-display text-base sm:text-lg font-bold text-white mb-4 flex items-center gap-3">
+                                <span class="w-8 h-8 rounded-xl btn-liquid-fire text-white font-black text-sm flex items-center justify-center">02</span>
+                                Выберите мясо прямо с шампура
+                            </h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5" id="builderMeatGroup"></div>
+                        </div>
+
+                        <!-- Step 3: Chef Sauces -->
+                        <div class="crystal-card rounded-3xl p-6">
+                            <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                                <h3 class="font-display text-base sm:text-lg font-bold text-white flex items-center gap-3">
+                                    <span class="w-8 h-8 rounded-xl btn-liquid-fire text-white font-black text-sm flex items-center justify-center">03</span>
+                                    Авторские соусы шефа Александра
+                                </h3>
+                                <span class="px-3 py-1 rounded-full bg-gold-400/20 text-gold-300 text-xs font-bold border border-gold-400/30">
+                                    ★ Гордость заведения
+                                </span>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5" id="builderSauceGroup"></div>
+                        </div>
+
+                        <!-- Step 4: Gourmet Toppings -->
+                        <div class="crystal-card rounded-3xl p-6">
+                            <h3 class="font-display text-base sm:text-lg font-bold text-white mb-4 flex items-center gap-3">
+                                <span class="w-8 h-8 rounded-xl btn-liquid-fire text-white font-black text-sm flex items-center justify-center">04</span>
+                                Премиум-топпинги для сочности
+                            </h3>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3.5" id="builderExtrasGroup"></div>
+                        </div>
+                    </div>
+
+                    <!-- Right 4 Cols: Sticky 3D Layer Hologram Preview -->
+                    <div class="lg:col-span-4 lg:sticky lg:top-28">
+                        <div class="tilt-card crystal-card rounded-[2rem] p-6 sm:p-7 border-2 border-gold-400/60 relative overflow-hidden">
+                            <div class="tilt-glare"></div>
+
+                            <div class="flex items-center justify-between border-b border-gold-400/20 pb-4 mb-4">
+                                <div>
+                                    <span class="text-[11px] text-gold-300 font-extrabold uppercase tracking-widest">Живое 3D-превью состава</span>
+                                    <h4 class="font-display text-xl font-black text-white mt-0.5">ШАУРМА ОТ ШЕФА</h4>
+                                </div>
+                                <span class="px-3 py-1 rounded-xl bg-gold-400/20 border border-gold-400/40 text-gold-300 font-display font-black text-xs">
+                                    ~450 г
+                                </span>
+                            </div>
+
+                            <!-- Interactive Real-Time 3D SVG Shawarma Preview -->
+                            <div id="builderLiveSvgPreview" class="relative h-48 rounded-2xl bg-gradient-to-b from-[#380816] to-[#120206] border border-gold-400/30 mb-5 flex items-center justify-center overflow-hidden shadow-inner">
+                            </div>
+
+                            <!-- Selected Ingredients Summary -->
+                            <div class="space-y-3 text-sm mb-6">
+                                <div class="flex justify-between items-center py-1.5 border-b border-white/10">
+                                    <span class="text-rose-200/70">Лаваш:</span>
+                                    <span id="summaryLavash" class="font-bold text-white">Классический тонкий</span>
+                                </div>
+                                <div class="flex justify-between items-center py-1.5 border-b border-white/10">
+                                    <span class="text-rose-200/70">Мясо с углей:</span>
+                                    <span id="summaryMeat" class="font-extrabold text-gold-300">Курица с мангала</span>
+                                </div>
+                                <div class="flex justify-between items-center py-1.5 border-b border-white/10">
+                                    <span class="text-rose-200/70">Соус шефа:</span>
+                                    <span id="summarySauce" class="font-bold text-flame-400">Чесночный крафт</span>
+                                </div>
+                                <div class="py-1.5">
+                                    <span class="text-rose-200/70 block mb-2">Топпинги:</span>
+                                    <div id="summaryExtras" class="flex flex-wrap gap-1.5">
+                                        <span class="text-xs text-rose-200/50 italic">Без дополнительных топпингов</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Price Box -->
+                            <div class="bg-gradient-to-r from-ruby-950 to-ruby-900 rounded-2xl p-4 mb-5 flex items-center justify-between border border-gold-400/30">
+                                <div>
+                                    <span class="text-xs text-rose-200/80 block">Вес: ~450 г</span>
+                                    <span class="text-xs text-emerald-400 font-bold">Не разваливается!</span>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-xs text-rose-200/80 block">К оплате:</span>
+                                    <span id="builderTotalPrice" class="font-display font-black text-2xl text-gold-300">270 ₽</span>
+                                </div>
+                            </div>
+
+                            <button onclick="addCustomShawarmaToCart()" class="w-full py-4 rounded-2xl btn-liquid-fire text-white font-display font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2">
+                                <i class="ph-bold ph-fire text-xl"></i>
+                                Отправить на мангал
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MAIN GASTRO-GRILL MENU CATALOG -->
+        <section id="menu" class="py-20 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+                    <div>
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-flame-500/20 border border-flame-400/40 text-gold-300 text-xs font-extrabold uppercase tracking-widest mb-3">
+                            <i class="ph-fill ph-campfire"></i> Горячая витрина
+                        </div>
+                        <h2 class="font-display text-2xl sm:text-4xl lg:text-5xl font-black text-white uppercase">
+                            МЕНЮ <span class="text-gold-fire">НА ЖИВЫХ УГЛЯХ</span>
+                        </h2>
+                    </div>
+
+                    <!-- Search Box -->
+                    <div class="relative w-full md:w-80">
+                        <i class="ph-bold ph-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gold-400 text-lg"></i>
+                        <input type="text" id="menuSearchInput" oninput="filterMenu()" placeholder="Найти шашлык, люля, соус..." 
+                               class="w-full pl-11 pr-4 py-3.5 rounded-2xl crystal-card text-sm text-white placeholder-rose-200/60 focus:outline-none focus:border-gold-400 transition-all">
+                    </div>
+                </div>
+
+                <!-- Category Filter Pills -->
+                <div class="flex items-center gap-3 overflow-x-auto no-scrollbar pb-4 mb-10" id="categoryTabs">
+                    <button onclick="setCategory('all')" data-cat="all" class="cat-btn px-6 py-3 rounded-2xl font-display font-bold text-xs uppercase tracking-wider whitespace-nowrap transition-all btn-liquid-fire text-white">
+                        🔥 Все блюда
+                    </button>
+                    <button onclick="setCategory('shawarma')" data-cat="shawarma" class="cat-btn px-6 py-3 rounded-2xl font-display font-bold text-xs uppercase tracking-wider whitespace-nowrap transition-all crystal-card text-rose-100 hover:text-gold-300">
+                        🌯 Шаурма на углях
+                    </button>
+                    <button onclick="setCategory('shashlik')" data-cat="shashlik" class="cat-btn px-6 py-3 rounded-2xl font-display font-bold text-xs uppercase tracking-wider whitespace-nowrap transition-all crystal-card text-rose-100 hover:text-gold-300">
+                        🥩 Шашлык и Люля
+                    </button>
+                    <button onclick="setCategory('snacks')" data-cat="snacks" class="cat-btn px-6 py-3 rounded-2xl font-display font-bold text-xs uppercase tracking-wider whitespace-nowrap transition-all crystal-card text-rose-100 hover:text-gold-300">
+                        🍟 Картофель Фри и Закуски
+                    </button>
+                    <button onclick="setCategory('sauces')" data-cat="sauces" class="cat-btn px-6 py-3 rounded-2xl font-display font-bold text-xs uppercase tracking-wider whitespace-nowrap transition-all crystal-card text-rose-100 hover:text-gold-300">
+                        🌶️ Фирменные соусы
+                    </button>
+                    <button onclick="setCategory('drinks')" data-cat="drinks" class="cat-btn px-6 py-3 rounded-2xl font-display font-bold text-xs uppercase tracking-wider whitespace-nowrap transition-all crystal-card text-rose-100 hover:text-gold-300">
+                        ☕ Кофе и Напитки
+                    </button>
+                    <button onclick="setCategory('certs')" data-cat="certs" class="cat-btn px-6 py-3 rounded-2xl font-display font-bold text-xs uppercase tracking-wider whitespace-nowrap transition-all crystal-card text-rose-100 hover:text-gold-300">
+                        🎁 Подарочные сертификаты
+                    </button>
+                </div>
+
+                <!-- Tip Banner for Custom Photos -->
+                <div class="mb-7 px-4 py-3 rounded-2xl bg-ruby-900/70 border border-gold-400/25 flex flex-wrap items-center justify-between gap-2 text-xs text-rose-100/90">
+                    <div class="flex items-center gap-2">
+                        <i class="ph-fill ph-Sparkle text-gold-400 text-base"></i>
+                        <span>Каждое блюдо оснащено 3D-иллюстрацией с анимацией жара. Владелец может нажать на иконку <strong class="text-gold-300">📷 «Фото»</strong> на любой карточке, чтобы подставить снимок со смартфона!</span>
+                    </div>
+                    <button onclick="resetCustomPhotos()" class="text-gold-300 hover:text-white underline font-semibold">Сбросить свои фото</button>
+                </div>
+
+                <!-- Hidden File Input for Owner Photo Upload -->
+                <input type="file" id="dishPhotoUploader" accept="image/*" class="hidden" onchange="handlePhotoSelected(event)">
+
+                <!-- 3D Tilt Menu Grid -->
+                <div id="menuGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-7"></div>
+            </div>
+        </section>
+
+        <!-- 9 LUXURY FEATURES SECTION -->
+        <section id="features" class="py-20 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-14">
+                    <span class="px-4 py-1.5 rounded-full bg-gold-400/15 border border-gold-400/40 text-gold-300 text-xs font-extrabold uppercase tracking-widest">
+                        Стандарт качества на станции Чехов
+                    </span>
+                    <h2 class="font-display text-2xl sm:text-4xl lg:text-5xl font-black text-white mt-4 uppercase">
+                        9 ПРИЧИН ЗАЙТИ В <span class="text-gold-fire">НАШ ГРИЛЬ-БАР</span>
+                    </h2>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="tilt-card crystal-card p-6 rounded-3xl flex gap-4 items-start">
+                        <div class="tilt-glare"></div>
+                        <div class="w-14 h-14 rounded-2xl btn-liquid-fire flex items-center justify-center text-white text-2xl shrink-0">
+                            <i class="ph-fill ph-fire"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-display font-bold text-white text-base">1. Мясо прямо с мангала</h3>
+                            <p class="text-xs text-rose-100/80 mt-1.5 leading-relaxed">Жарим шашлык на березовых углях — с настоящим ароматом костра и сочной корочкой.</p>
+                        </div>
+                    </div>
+
+                    <div class="tilt-card crystal-card p-6 rounded-3xl flex gap-4 items-start">
+                        <div class="tilt-glare"></div>
+                        <div class="w-14 h-14 rounded-2xl btn-liquid-fire flex items-center justify-center text-white text-2xl shrink-0">
+                            <i class="ph-fill ph-bowl-food"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-display font-bold text-white text-base">2. Секретные соусы шефа</h3>
+                            <p class="text-xs text-rose-100/80 mt-1.5 leading-relaxed">Авторские крафтовые соусы, которые гости называют в отзывах «отдельной темой и шиком».</p>
+                        </div>
+                    </div>
+
+                    <div class="tilt-card crystal-card p-6 rounded-3xl flex gap-4 items-start">
+                        <div class="tilt-glare"></div>
+                        <div class="w-14 h-14 rounded-2xl btn-liquid-fire flex items-center justify-center text-white text-2xl shrink-0">
+                            <i class="ph-fill ph-moped"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-display font-bold text-white text-base">3. Доставка и предзаказ</h3>
+                            <p class="text-xs text-rose-100/80 mt-1.5 leading-relaxed">Готовим точно к минуте прибытия вашей электрички или доставляем горячим по Чехову.</p>
+                        </div>
+                    </div>
+
+                    <div class="tilt-card crystal-card p-6 rounded-3xl flex gap-4 items-start">
+                        <div class="tilt-glare"></div>
+                        <div class="w-14 h-14 rounded-2xl btn-liquid-fire flex items-center justify-center text-white text-2xl shrink-0">
+                            <i class="ph-fill ph-package"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-display font-bold text-white text-base">4. Не разваливается в пути</h3>
+                            <p class="text-xs text-rose-100/80 mt-1.5 leading-relaxed">Плотная скрутка и термоупаковка: удобно взять с собой в поезд или автобус.</p>
+                        </div>
+                    </div>
+
+                    <div class="tilt-card crystal-card p-6 rounded-3xl flex gap-4 items-start">
+                        <div class="tilt-glare"></div>
+                        <div class="w-14 h-14 rounded-2xl btn-liquid-fire flex items-center justify-center text-white text-2xl shrink-0">
+                            <i class="ph-fill ph-coffee"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-display font-bold text-white text-base">5. Зерновой кофе с собой</h3>
+                            <p class="text-xs text-rose-100/80 mt-1.5 leading-relaxed">Бодрящий капучино, латте и американо из свежеобжаренного зерна с утра до вечера.</p>
+                        </div>
+                    </div>
+
+                    <div class="tilt-card crystal-card p-6 rounded-3xl flex gap-4 items-start">
+                        <div class="tilt-glare"></div>
+                        <div class="w-14 h-14 rounded-2xl btn-liquid-fire flex items-center justify-center text-white text-2xl shrink-0">
+                            <i class="ph-fill ph-credit-card"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-display font-bold text-white text-base">6. Оплата картой и СБП</h3>
+                            <p class="text-xs text-rose-100/80 mt-1.5 leading-relaxed">Мгновенная бесконтактная оплата банковскими картами, QR-кодом СБП или наличными.</p>
+                        </div>
+                    </div>
+
+                    <div class="tilt-card crystal-card p-6 rounded-3xl flex gap-4 items-start">
+                        <div class="tilt-glare"></div>
+                        <div class="w-14 h-14 rounded-2xl btn-liquid-fire flex items-center justify-center text-white text-2xl shrink-0">
+                            <i class="ph-fill ph-television"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-display font-bold text-white text-base">7. Спортивные трансляции</h3>
+                            <p class="text-xs text-rose-100/80 mt-1.5 leading-relaxed">Смотрите главные матчи на большом экране под сочный шашлык в кругу друзей.</p>
+                        </div>
+                    </div>
+
+                    <div class="tilt-card crystal-card p-6 rounded-3xl flex gap-4 items-start">
+                        <div class="tilt-glare"></div>
+                        <div class="w-14 h-14 rounded-2xl btn-liquid-fire flex items-center justify-center text-white text-2xl shrink-0">
+                            <i class="ph-fill ph-gift"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-display font-bold text-white text-base">8. Подарочные сертификаты</h3>
+                            <p class="text-xs text-rose-100/80 mt-1.5 leading-relaxed">Подарите друзьям сертификат на настоящий кавказский шашлык и авторскую шаурму.</p>
+                        </div>
+                    </div>
+
+                    <div class="tilt-card crystal-card p-6 rounded-3xl flex gap-4 items-start">
+                        <div class="tilt-glare"></div>
+                        <div class="w-14 h-14 rounded-2xl btn-liquid-fire flex items-center justify-center text-white text-2xl shrink-0">
+                            <i class="ph-fill ph-dog"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-display font-bold text-white text-base">9. Pet-Friendly (Можно с собакой)</h3>
+                            <p class="text-xs text-rose-100/80 mt-1.5 leading-relaxed">Заходите к нам во время прогулки со своим четвероногим другом — мы всегда рады гостям!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GLOWING 3D CUSTOMER REVIEWS -->
+        <section id="reviews" class="py-20 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-12">
+                    <div>
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-gold-400/15 border border-gold-400/40 text-gold-300 text-xs font-extrabold uppercase tracking-widest mb-3">
+                            <i class="ph-fill ph-medal"></i> Народный рейтинг Чехова
+                        </div>
+                        <h2 class="font-display text-2xl sm:text-4xl lg:text-5xl font-black text-white uppercase">
+                            РЕАЛЬНЫЕ ОТЗЫВЫ <span class="text-gold-fire">ГОСТЕЙ</span>
+                        </h2>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-4">
+                        <div class="crystal-card px-5 py-3 rounded-2xl flex items-center gap-3.5 border-gold-400/50">
+                            <div class="text-4xl font-display font-black text-gold-300">4.4</div>
+                            <div>
+                                <div class="flex text-gold-400 text-base">
+                                    <i class="ph-fill ph-star"></i>
+                                    <i class="ph-fill ph-star"></i>
+                                    <i class="ph-fill ph-star"></i>
+                                    <i class="ph-fill ph-star"></i>
+                                    <i class="ph-fill ph-star-half"></i>
+                                </div>
+                                <div class="text-xs text-rose-100/80 font-semibold">Яндекс Карты • 22+ оценки</div>
+                            </div>
+                        </div>
+
+                        <button onclick="toggleReviewModal(true)" class="px-6 py-4 rounded-2xl btn-liquid-fire text-white font-display font-bold text-xs uppercase tracking-wider flex items-center gap-2">
+                            <i class="ph-bold ph-pencil-simple text-lg"></i>
+                            Оставить отзыв
+                        </button>
+                    </div>
+                </div>
+
+                <div id="reviewsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-7"></div>
+            </div>
+        </section>
+
+        <!-- CONTACTS & INTERACTIVE 3D STATION RADAR -->
+        <section id="contacts" class="py-20 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                    
+                    <!-- Contact Card -->
+                    <div class="lg:col-span-5 crystal-card rounded-[2rem] p-7 sm:p-9 flex flex-col justify-between">
+                        <div class="space-y-6">
+                            <div>
+                                <span class="text-xs font-extrabold uppercase tracking-widest text-gold-300">Найти нас проще простого</span>
+                                <h2 class="font-display text-2xl sm:text-3xl font-black text-white mt-1 uppercase">
+                                    ВОКЗАЛЬНАЯ ПЛОЩАДЬ
+                                </h2>
+                            </div>
+
+                            <div class="space-y-5">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-12 h-12 rounded-2xl btn-liquid-fire text-white flex items-center justify-center text-2xl shrink-0">
+                                        <i class="ph-fill ph-map-pin"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs text-rose-200/70">Точный адрес:</div>
+                                        <div class="font-display font-bold text-white text-base">Московская обл., г. Чехов, Вокзальная площадь</div>
+                                        <div class="text-xs text-gold-300 font-semibold mt-1">1 минута от выхода с ж/д платформы «Чехов» и автобусной остановки</div>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start gap-4">
+                                    <div class="w-12 h-12 rounded-2xl btn-liquid-fire text-white flex items-center justify-center text-2xl shrink-0">
+                                        <i class="ph-fill ph-phone-call"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs text-rose-200/70">Прямой номер мангал-бара:</div>
+                                        <div class="flex flex-wrap items-center gap-2.5 mt-1">
+                                            <a href="tel:+79251874705" class="font-display font-black text-xl text-gold-300 hover:text-white transition-colors">
+                                                +7 (925) 187-47-05
+                                            </a>
+                                            <button onclick="copyPhoneNumber()" class="px-3 py-1 rounded-xl bg-white/10 hover:bg-white/20 text-xs text-white font-semibold border border-gold-400/30 flex items-center gap-1 transition-all">
+                                                <i class="ph-bold ph-copy"></i> Скопировать
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start gap-4">
+                                    <div class="w-12 h-12 rounded-2xl btn-liquid-fire text-white flex items-center justify-center text-2xl shrink-0">
+                                        <i class="ph-fill ph-clock"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs text-rose-200/70">Режим работы:</div>
+                                        <div class="font-bold text-white text-sm">Ежедневно с утра до позднего вечера</div>
+                                        <div class="text-xs text-emerald-400 font-semibold mt-0.5">Свежее мясо на углях без перерывов</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-7 mt-7 border-t border-gold-400/20 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                            <a href="tel:+79251874705" class="py-4 px-4 rounded-2xl btn-liquid-fire text-white font-display font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2">
+                                <i class="ph-bold ph-phone text-lg"></i> Позвонить
+                            </a>
+                            <a href="https://yandex.ru/maps/?text=Чехов+Вокзальная+площадь+Шашлык+и+Шаурма" target="_blank" rel="noopener noreferrer" class="py-4 px-4 rounded-2xl bg-white/10 hover:bg-white/20 text-gold-300 font-display font-bold text-xs uppercase tracking-wider border border-gold-400/40 flex items-center justify-center gap-2 transition-all">
+                                <i class="ph-bold ph-navigation-arrow text-lg"></i> Яндекс Карты
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Glowing Station Radar -->
+                    <div class="lg:col-span-7 crystal-card rounded-[2rem] p-7 sm:p-9 relative overflow-hidden flex flex-col justify-between">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <div>
+                                <span class="px-3.5 py-1 rounded-full bg-gold-400/20 text-gold-300 text-xs font-extrabold uppercase">Неоновая схема локации</span>
+                                <h3 class="font-display font-bold text-white text-lg sm:text-xl mt-2">Ориентир — аромат шашлыка на станции Чехов</h3>
+                            </div>
+                            <span class="text-xs font-bold text-gold-300 bg-ruby-950/90 px-3.5 py-2 rounded-xl border border-gold-400/30">
+                                📍 Вокзальная пл.
+                            </span>
+                        </div>
+
+                        <!-- Glowing Vector Radar Map -->
+                        <div class="my-6 relative bg-ruby-950/90 rounded-3xl border border-gold-400/30 p-4 sm:p-6 overflow-hidden shadow-inner">
+                            <svg viewBox="0 0 600 220" class="w-full h-auto">
+                                <defs>
+                                    <pattern id="luxGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+                                        <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(255, 190, 11, 0.08)" stroke-width="1"/>
+                                    </pattern>
+                                    <linearGradient id="fireGradSvg" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#ffbe0b" />
+                                        <stop offset="50%" stop-color="#ff3b00" />
+                                        <stop offset="100%" stop-color="#ff0055" />
+                                    </linearGradient>
+                                </defs>
+                                <rect width="600" height="220" fill="url(#luxGrid)" />
+
+                                <!-- Railway -->
+                                <line x1="0" y1="35" x2="600" y2="35" stroke="#ffbe0b" stroke-opacity="0.4" stroke-width="4" stroke-dasharray="12,8" />
+                                <line x1="0" y1="45" x2="600" y2="45" stroke="#ff3b00" stroke-opacity="0.4" stroke-width="2" />
+                                <text x="20" y="24" fill="#ffe066" font-size="11" font-family="Inter" font-weight="700">🚆 Ж/Д СТАНЦИЯ «ЧЕХОВ» (ВЫХОД В ГОРОД)</text>
+
+                                <!-- Station -->
+                                <rect x="50" y="65" width="160" height="50" rx="12" fill="#23050d" stroke="#ffbe0b" stroke-opacity="0.5" stroke-width="2"/>
+                                <text x="130" y="95" fill="#ffffff" font-size="12" font-family="Inter" font-weight="800" text-anchor="middle">Вокзал ст. Чехов</text>
+
+                                <!-- Bus Stop -->
+                                <rect x="50" y="145" width="160" height="45" rx="12" fill="#23050d" stroke="#ff6b2b" stroke-opacity="0.5" stroke-width="2"/>
+                                <text x="130" y="172" fill="#ffe066" font-size="11" font-family="Inter" font-weight="700" text-anchor="middle">🚌 Остановка автобусов</text>
+
+                                <!-- Glowing Animated Path -->
+                                <path d="M 210 90 Q 290 90 355 122" fill="none" stroke="#ffbe0b" stroke-width="3.5" stroke-dasharray="6,6"/>
+                                <path d="M 210 168 Q 290 168 355 138" fill="none" stroke="#ff3b00" stroke-width="3.5" stroke-dasharray="6,6"/>
+
+                                <!-- Target Gastro Grill -->
+                                <g transform="translate(350, 78)">
+                                    <rect x="0" y="0" width="225" height="95" rx="20" fill="url(#fireGradSvg)" />
+                                    <text x="112" y="34" fill="#ffffff" font-size="13" font-family="Unbounded" font-weight="900" text-anchor="middle">🔥 ШАШЛЫК &amp; ШАУРМА</text>
+                                    <text x="112" y="56" fill="#140307" font-size="11" font-family="Inter" font-weight="800" text-anchor="middle">Мясо с углей • Соусы Шефа</text>
+                                    <text x="112" y="76" fill="#ffffff" font-size="11" font-family="Inter" font-weight="800" text-anchor="middle">60 секунд от поезда!</text>
+                                </g>
+                            </svg>
+                        </div>
+
+                        <div class="grid grid-cols-3 gap-3 text-center text-xs">
+                            <div class="bg-ruby-950/80 p-3 rounded-2xl border border-gold-400/20">
+                                <span class="text-gold-300 font-display font-black block">60 сек</span>
+                                <span class="text-rose-200/70">от ж/д платформы</span>
+                            </div>
+                            <div class="bg-ruby-950/80 p-3 rounded-2xl border border-gold-400/20">
+                                <span class="text-flame-400 font-display font-black block">На углях</span>
+                                <span class="text-rose-200/70">живой огонь</span>
+                            </div>
+                            <div class="bg-ruby-950/80 p-3 rounded-2xl border border-gold-400/20">
+                                <span class="text-emerald-400 font-display font-black block">4.4 ★</span>
+                                <span class="text-rose-200/70">выбор жителей</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- LUXURY FOOTER -->
+        <footer class="bg-ruby-950/95 py-10 border-t border-gold-400/20 text-xs text-rose-200/70">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl btn-liquid-fire flex items-center justify-center text-white font-bold">
+                        <i class="ph-fill ph-fire text-lg"></i>
+                    </div>
+                    <div>
+                        <span class="text-white font-display font-bold">Гастро-гриль «Шашлык & Шаурма»</span> • г. Чехов, Вокзальная площадь
+                    </div>
+                </div>
+                <div class="flex flex-wrap items-center gap-4 font-semibold">
+                    <span class="text-gold-300">Карты / СБП / Наличные</span>
+                    <span>•</span>
+                    <a href="tel:+79251874705" class="text-white hover:text-gold-300">+7 (925) 187-47-05</a>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- SLIDE-OVER VIP CART DRAWER -->
+    <div id="cartDrawerBackdrop" onclick="toggleCart(false)" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden opacity-0 transition-opacity duration-300"></div>
+    
+    <aside id="cartDrawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-ruby-950 border-l border-gold-400/30 z-50 transform translate-x-full transition-transform duration-300 flex flex-col shadow-2xl">
+        <div class="p-5 border-b border-gold-400/20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl btn-liquid-fire flex items-center justify-center text-white">
+                    <i class="ph-fill ph-shopping-bag text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="font-display text-base font-black text-white leading-none">ВАШ ПРЕДЗАКАЗ</h3>
+                    <span class="text-xs text-gold-300">Свежий шашлык и шаурма с мангала</span>
+                </div>
+            </div>
+            <button onclick="toggleCart(false)" class="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 text-white flex items-center justify-center">
+                <i class="ph-bold ph-x text-lg"></i>
+            </button>
+        </div>
+
+        <!-- Mode Switcher -->
+        <div class="px-5 pt-4">
+            <div class="grid grid-cols-2 gap-1.5 p-1.5 bg-ruby-900 rounded-2xl border border-gold-400/20">
+                <button id="modePickupBtn" onclick="setOrderMode('pickup')" class="py-2.5 px-3 rounded-xl text-xs font-display font-bold transition-all btn-liquid-fire text-white">
+                    🏃 Самовывоз
+                </button>
+                <button id="modeDeliveryBtn" onclick="setOrderMode('delivery')" class="py-2.5 px-3 rounded-xl text-xs font-display font-bold transition-all text-rose-200/70 hover:text-white">
+                    🛵 Доставка
+                </button>
+            </div>
+        </div>
+
+        <!-- Cart Items -->
+        <div id="cartItemsContainer" class="flex-1 overflow-y-auto p-5 space-y-3"></div>
+
+        <!-- Checkout Form -->
+        <div class="p-5 bg-ruby-900/90 border-t border-gold-400/25 space-y-4">
+            <div class="space-y-3">
+                <div class="grid grid-cols-2 gap-2.5">
+                    <div>
+                        <label class="text-[11px] text-gold-300 font-bold block mb-1">Ваше имя</label>
+                        <input type="text" id="orderClientName" placeholder="Алексей" class="w-full px-3.5 py-2.5 rounded-xl bg-ruby-950 border border-gold-400/30 text-xs text-white focus:outline-none focus:border-gold-400">
+                    </div>
+                    <div>
+                        <label class="text-[11px] text-gold-300 font-bold block mb-1">Телефон</label>
+                        <input type="tel" id="orderClientPhone" placeholder="+7 (999) 000-00-00" class="w-full px-3.5 py-2.5 rounded-xl bg-ruby-950 border border-gold-400/30 text-xs text-white focus:outline-none focus:border-gold-400">
+                    </div>
+                </div>
+
+                <div>
+                    <label id="timeOrAddressLabel" class="text-[11px] text-gold-300 font-bold block mb-1">
+                        К какому времени разжечь угли?
+                    </label>
+                    <select id="orderTimingSelect" class="w-full px-3.5 py-2.5 rounded-xl bg-ruby-950 border border-gold-400/30 text-xs text-white focus:outline-none focus:border-gold-400">
+                        <option value="Через 10–15 минут (максимально быстро)">🔥 Через 10–15 минут (как можно быстрее)</option>
+                        <option value="К прибытию электрички (через 20 мин)">🚆 К прибытию электрички на ст. Чехов (20 мин)</option>
+                        <option value="Через 30–40 минут">⏱️ Через 30–40 минут</option>
+                        <option value="В зале кафе (под спортивную трансляцию)">📺 В зале кафе (под спорт-трансляцию)</option>
+                    </select>
+                    <input type="text" id="orderAddressInput" placeholder="Улица, дом, квартира в г. Чехов..." class="hidden w-full mt-2 px-3.5 py-2.5 rounded-xl bg-ruby-950 border border-gold-400/30 text-xs text-white focus:outline-none focus:border-gold-400">
+                </div>
+            </div>
+
+            <div class="flex items-center justify-between pt-2 border-t border-gold-400/20">
+                <span class="text-xs text-rose-100/80 font-medium">Итого к оплате:</span>
+                <span id="drawerCartTotal" class="font-display font-black text-2xl text-gold-300">0 ₽</span>
+            </div>
+
+            <button onclick="submitOrder()" class="w-full py-4 rounded-2xl btn-liquid-fire text-white font-display font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2">
+                <i class="ph-bold ph-check-circle text-lg"></i>
+                Подтвердить предзаказ
+            </button>
+        </div>
+    </aside>
+
+    <!-- ORDER CONFIRMATION MODAL -->
+    <div id="orderSuccessModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden items-center justify-center p-4">
+        <div class="crystal-card max-w-md w-full rounded-3xl p-7 border-2 border-gold-400 text-center space-y-4">
+            <div class="w-16 h-16 rounded-2xl btn-liquid-fire text-white mx-auto flex items-center justify-center text-3xl shadow-xl">
+                <i class="ph-fill ph-fire"></i>
+            </div>
+            <h3 class="font-display text-xl font-black text-white uppercase">ЗАКАЗ СФОРМИРОВАН!</h3>
+            <p class="text-xs text-rose-100/90 leading-relaxed">
+                Отправьте чек предзаказа в один клик в WhatsApp или позвоните нам, чтобы шеф сразу поставил ваше мясо на мангал!
+            </p>
+            <div id="orderReceiptPreview" class="bg-ruby-950 p-4 rounded-2xl border border-gold-400/30 text-left text-xs text-gold-300 font-mono whitespace-pre-line max-h-48 overflow-y-auto"></div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                <a id="whatsappOrderLink" href="#" target="_blank" class="py-3.5 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-ruby-950 font-display font-black text-xs flex items-center justify-center gap-2">
+                    <i class="ph-fill ph-whatsapp-logo text-lg"></i> В WhatsApp
+                </a>
+                <a href="tel:+79251874705" class="py-3.5 px-4 rounded-xl btn-liquid-fire text-white font-display font-black text-xs flex items-center justify-center gap-2">
+                    <i class="ph-bold ph-phone-call text-lg"></i> Позвонить
+                </a>
+            </div>
+            <button onclick="closeOrderModal()" class="text-xs text-rose-200/70 hover:text-white underline pt-1">Закрыть окно</button>
+        </div>
+    </div>
+
+    <!-- ADD REVIEW MODAL -->
+    <div id="reviewModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden items-center justify-center p-4">
+        <div class="crystal-card max-w-md w-full rounded-3xl p-7 border border-gold-400/50 space-y-4">
+            <div class="flex items-center justify-between">
+                <h3 class="font-display text-lg font-black text-white uppercase">ВАШ ОТЗЫВ О КАФЕ</h3>
+                <button onclick="toggleReviewModal(false)" class="text-rose-200 hover:text-white">
+                    <i class="ph-bold ph-x text-lg"></i>
+                </button>
+            </div>
+            <div class="space-y-3">
+                <div>
+                    <label class="text-xs text-gold-300 font-bold block mb-1">Ваше имя</label>
+                    <input type="text" id="newReviewAuthor" placeholder="Например, Дмитрий" class="w-full px-3.5 py-2.5 rounded-xl bg-ruby-950 border border-gold-400/30 text-sm text-white focus:outline-none focus:border-gold-400">
+                </div>
+                <div>
+                    <label class="text-xs text-gold-300 font-bold block mb-1">Ваша оценка</label>
+                    <select id="newReviewStars" class="w-full px-3.5 py-2.5 rounded-xl bg-ruby-950 border border-gold-400/30 text-sm text-gold-300 font-bold focus:outline-none">
+                        <option value="5">★★★★★ (5 — Высший класс!)</option>
+                        <option value="4">★★★★☆ (4 — Очень вкусно)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="text-xs text-gold-300 font-bold block mb-1">Впечатления о мясе и соусах</label>
+                    <textarea id="newReviewText" rows="3" placeholder="Поделитесь впечатлениями..." class="w-full px-3.5 py-2.5 rounded-xl bg-ruby-950 border border-gold-400/30 text-sm text-white focus:outline-none focus:border-gold-400"></textarea>
+                </div>
+                <button onclick="addNewReview()" class="w-full py-3.5 rounded-xl btn-liquid-fire text-white font-display font-black text-xs uppercase tracking-wider">
+                    Опубликовать отзыв
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toastNotification" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 transition-all duration-300 transform translate-y-4">
+        <div class="crystal-card border-2 border-gold-400 text-white px-6 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 text-sm font-bold">
+            <i class="ph-fill ph-fire text-gold-400 text-xl"></i>
+            <span id="toastMessage">Добавлено в предзаказ!</span>
+        </div>
+    </div>
+
+    <!-- SCRIPTS: THREE.JS 3D SCENE + 3D TILT + INTERACTIVE STORE -->
+    <script>
+        // ==========================================
+        // 1. THREE.JS REAL-TIME 3D EMBER & CRYSTAL SCENE
+        // ==========================================
+        function initThreeJSBackground() {
+            const canvas = document.getElementById('bg3dCanvas');
+            if (!canvas || typeof THREE === 'undefined') return;
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 38;
+
+            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            // Dynamic Lighting
+            const ambientLight = new THREE.AmbientLight(0xffbe0b, 0.7);
+            scene.add(ambientLight);
+
+            const pointLight1 = new THREE.PointLight(0xff3b00, 3.5, 120);
+            pointLight1.position.set(20, 15, 20);
+            scene.add(pointLight1);
+
+            const pointLight2 = new THREE.PointLight(0xff0055, 3, 120);
+            pointLight2.position.set(-25, -15, 15);
+            scene.add(pointLight2);
+
+            const goldLight = new THREE.PointLight(0xffe066, 2.5, 100);
+            goldLight.position.set(0, 25, 10);
+            scene.add(goldLight);
+
+            // Group for 3D Floating Fire Crystals & Golden Rings
+            const crystalGroup = new THREE.Group();
+            scene.add(crystalGroup);
+
+            const crystalGeo = new THREE.OctahedronGeometry(1.35, 0);
+            const torusGeo = new THREE.TorusGeometry(1.8, 0.25, 12, 32);
+
+            const materials = [
+                new THREE.MeshStandardMaterial({
+                    color: 0xff3b00,
+                    emissive: 0x801100,
+                    roughness: 0.15,
+                    metalness: 0.85
+                }),
+                new THREE.MeshStandardMaterial({
+                    color: 0xffbe0b,
+                    emissive: 0x663300,
+                    roughness: 0.1,
+                    metalness: 0.95
+                }),
+                new THREE.MeshStandardMaterial({
+                    color: 0xff0055,
+                    emissive: 0x550022,
+                    roughness: 0.2,
+                    metalness: 0.8,
+                    wireframe: true
+                })
+            ];
+
+            const floatingMeshes = [];
+            for (let i = 0; i < 26; i++) {
+                const isTorus = i % 4 === 0;
+                const mat = materials[i % materials.length];
+                const mesh = new THREE.Mesh(isTorus ? torusGeo : crystalGeo, mat);
+
+                mesh.position.set(
+                    (Math.random() - 0.5) * 75,
+                    (Math.random() - 0.5) * 55,
+                    (Math.random() - 0.5) * 35 - 5
+                );
+
+                const scale = Math.random() * 0.9 + 0.45;
+                mesh.scale.set(scale, scale, scale);
+
+                mesh.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, 0);
+
+                floatingMeshes.push({
+                    mesh,
+                    rotSpeedX: (Math.random() - 0.5) * 0.018,
+                    rotSpeedY: (Math.random() - 0.5) * 0.018,
+                    floatSpeed: Math.random() * 0.015 + 0.005,
+                    floatOffset: Math.random() * Math.PI * 2
+                });
+
+                crystalGroup.add(mesh);
+            }
+
+            // Glowing Rising Fire Sparks (Particle System)
+            const sparkCount = 320;
+            const sparkGeo = new THREE.BufferGeometry();
+            const positions = new Float32Array(sparkCount * 3);
+            const colors = new Float32Array(sparkCount * 3);
+
+            const palette = [
+                new THREE.Color(0xffbe0b),
+                new THREE.Color(0xff3b00),
+                new THREE.Color(0xffe066),
+                new THREE.Color(0xff0055)
+            ];
+
+            for (let i = 0; i < sparkCount; i++) {
+                positions[i * 3] = (Math.random() - 0.5) * 90;
+                positions[i * 3 + 1] = (Math.random() - 0.5) * 70;
+                positions[i * 3 + 2] = (Math.random() - 0.5) * 45;
+
+                const col = palette[Math.floor(Math.random() * palette.length)];
+                colors[i * 3] = col.r;
+                colors[i * 3 + 1] = col.g;
+                colors[i * 3 + 2] = col.b;
+            }
+
+            sparkGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            sparkGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+            const sparkMaterial = new THREE.PointsMaterial({
+                size: 0.55,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.85,
+                blending: THREE.AdditiveBlending
+            });
+
+            const sparkPoints = new THREE.Points(sparkGeo, sparkMaterial);
+            scene.add(sparkPoints);
+
+            // Mouse Parallax & Scroll Interaction
+            let targetX = 0;
+            let targetY = 0;
+            let scrollY = window.scrollY;
+
+            window.addEventListener('mousemove', (e) => {
+                targetX = (e.clientX / window.innerWidth - 0.5) * 10;
+                targetY = -(e.clientY / window.innerHeight - 0.5) * 10;
+            });
+
+            window.addEventListener('scroll', () => {
+                scrollY = window.scrollY;
+            });
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+
+            let clock = 0;
+            function animate() {
+                requestAnimationFrame(animate);
+                clock += 0.015;
+
+                // Smooth camera parallax
+                camera.position.x += (targetX - camera.position.x) * 0.05;
+                camera.position.y += (targetY - scrollY * 0.012 - camera.position.y) * 0.05;
+                camera.lookAt(0, -scrollY * 0.012, 0);
+
+                // Animate 3D crystals
+                floatingMeshes.forEach((item) => {
+                    item.mesh.rotation.x += item.rotSpeedX;
+                    item.mesh.rotation.y += item.rotSpeedY;
+                    item.mesh.position.y += Math.sin(clock + item.floatOffset) * item.floatSpeed;
+                });
+
+                // Rise fire sparks upward
+                const posArr = sparkGeo.attributes.position.array;
+                for (let i = 0; i < sparkCount; i++) {
+                    posArr[i * 3 + 1] += 0.06;
+                    posArr[i * 3] += Math.sin(clock + i) * 0.015;
+                    if (posArr[i * 3 + 1] > 35) {
+                        posArr[i * 3 + 1] = -35;
+                    }
+                }
+                sparkGeo.attributes.position.needsUpdate = true;
+
+                renderer.render(scene, camera);
+            }
+
+            animate();
+        }
+
+        // ==========================================
+        // 2. 3D INTERACTIVE CARD TILT EFFECT
+        // ==========================================
+        function bind3DTiltCards() {
+            const cards = document.querySelectorAll('.tilt-card');
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+
+                    const rotateX = ((y - centerY) / centerY) * -6;
+                    const rotateY = ((x - centerX) / centerX) * 6;
+
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.015, 1.015, 1.015)`;
+
+                    const glare = card.querySelector('.tilt-glare');
+                    if (glare) {
+                        glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255, 224, 102, 0.28), transparent 65%)`;
+                    }
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+                });
+            });
+        }
+
+        // ==========================================
+        // 3. DATA & INTERACTIVE LOGIC
+        // ==========================================
+        const builderData = {
+            lavash: [
+                { id: 'classic', name: 'Классический тонкий', desc: 'С румяными полосками гриля', price: 0 },
+                { id: 'cheese', name: 'Сырный премиум', desc: 'Яркий сливочно-сырный вкус', price: 25 },
+                { id: 'garlic', name: 'Чесночно-травяной', desc: 'Ароматный крафтовый лаваш', price: 25 }
+            ],
+            meat: [
+                { id: 'chicken', name: 'Курица с мангала', desc: 'Сочное филе бедра на углях', price: 240, badge: 'Хит' },
+                { id: 'pork', name: 'Свиной шашлык', desc: 'Мраморная шейка с дымком', price: 280, badge: 'Мощно' },
+                { id: 'beef', name: 'Телятина / Люля', desc: 'Пряное мясо с кинзой и луком', price: 310, badge: 'VIP' },
+                { id: 'mix', name: 'Огненный Микс', desc: 'Курица + Свинина с шампура', price: 300, badge: '2 мяса' }
+            ],
+            sauce: [
+                { id: 'garlic_craft', name: 'Чесночный крафт', desc: 'Тот самый белый соус шефа', price: 30 },
+                { id: 'satsibeli', name: 'Кавказский Сацибели', desc: 'Томаты, кинза и специи', price: 30 },
+                { id: 'firm_duet', name: 'Фирменный Дуэт 50/50', desc: 'Чесночный + Огненный томат', price: 35 },
+                { id: 'cheese_smoky', name: 'Дымный Сырный', desc: 'Густой сливочно-копченый', price: 40 }
+            ],
+            extras: [
+                { id: 'double_meat', name: 'Двойная порция шашлыка', price: 110 },
+                { id: 'cheddar', name: 'Чеддер + Моцарелла', price: 55 },
+                { id: 'jalapeno', name: 'Острый Халапеньо', price: 40 },
+                { id: 'fries_in', name: 'Хрустящий фри внутрь', price: 45 },
+                { id: 'mushrooms', name: 'Шампиньоны с углей', price: 65 },
+                { id: 'pomegranate', name: 'Гранатовый соус Наршараб', price: 35 }
+            ]
+        };
+
+        let builderState = {
+            lavash: builderData.lavash[0],
+            meat: builderData.meat[0],
+            sauce: builderData.sauce[0],
+            extras: []
+        };
+
+        // Custom Photos saved by user in localStorage
+        let customDishPhotos = {};
+        try {
+            const saved = localStorage.getItem('chekhov_grill_custom_photos');
+            if (saved) customDishPhotos = JSON.parse(saved);
+        } catch (e) {
+            customDishPhotos = {};
+        }
+
+        let currentUploadTargetId = null;
+
+        function triggerPhotoUpload(dishId) {
+            currentUploadTargetId = dishId;
+            const input = document.getElementById('dishPhotoUploader');
+            if (input) input.click();
+        }
+
+        function handlePhotoSelected(event) {
+            const file = event.target.files && event.target.files[0];
+            if (!file || !currentUploadTargetId) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                customDishPhotos[currentUploadTargetId] = e.target.result;
+                try {
+                    localStorage.setItem('chekhov_grill_custom_photos', JSON.stringify(customDishPhotos));
+                } catch (err) {
+                    // Ignore quota limits if photo is huge
+                }
+                renderHeroVisual();
+                renderMenu();
+                showToast('Ваше фото успешно установлено на карточку!');
+            };
+            reader.readAsDataURL(file);
+            event.target.value = '';
+        }
+
+        function resetCustomPhotos() {
+            customDishPhotos = {};
+            try {
+                localStorage.removeItem('chekhov_grill_custom_photos');
+            } catch (e) {}
+            renderHeroVisual();
+            renderMenu();
+            showToast('Восстановлены фирменные 3D-иллюстрации');
+        }
+
+        // ==========================================
+        // AUTONOMOUS 3D VECTOR ART ENGINE (100% INSTANT MOBILE RENDER)
+        // ==========================================
+        function getAutonomousDishArt(artType, itemId) {
+            if (customDishPhotos[itemId]) {
+                return `<img src="${customDishPhotos[itemId]}" alt="Фото блюда" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">`;
+            }
+
+            const uid = itemId.replace(/[^a-zA-Z0-9]/g, '');
+
+            switch (artType) {
+                case 'fries_gold':
+                    // Hyper-detailed 3D Golden French Fries in Red/Gold Craft Box with Rising Steam & Paprika Dust
+                    return `
+                    <svg viewBox="0 0 320 220" class="w-full h-full dish-float select-none">
+                        <defs>
+                            <radialGradient id="glow_${uid}" cx="50%" cy="55%" r="50%">
+                                <stop offset="0%" stop-color="#ffbe0b" stop-opacity="0.45"/>
+                                <stop offset="60%" stop-color="#ff3b00" stop-opacity="0.15"/>
+                                <stop offset="100%" stop-color="#140307" stop-opacity="0"/>
+                            </radialGradient>
+                            <linearGradient id="fry1_${uid}" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#fff3b0"/>
+                                <stop offset="50%" stop-color="#ffbe0b"/>
+                                <stop offset="100%" stop-color="#d97706"/>
+                            </linearGradient>
+                            <linearGradient id="fry2_${uid}" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#ffd166"/>
+                                <stop offset="70%" stop-color="#f59e0b"/>
+                                <stop offset="100%" stop-color="#b45309"/>
+                            </linearGradient>
+                            <linearGradient id="cup_${uid}" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#ff3b00"/>
+                                <stop offset="50%" stop-color="#b91c1c"/>
+                                <stop offset="100%" stop-color="#450a0a"/>
+                            </linearGradient>
+                        </defs>
+                        <!-- Golden Backlight -->
+                        <circle cx="160" cy="115" r="95" fill="url(#glow_${uid})"/>
+                        <!-- Rising Hot Steam -->
+                        <path d="M125 48 Q115 28 130 14" stroke="#ffe066" stroke-width="3" stroke-linecap="round" fill="none" class="steam-path-1"/>
+                        <path d="M160 42 Q172 22 158 8" stroke="#ffffff" stroke-width="3" stroke-linecap="round" fill="none" class="steam-path-2"/>
+                        <path d="M195 50 Q205 30 190 16" stroke="#ffbe0b" stroke-width="3" stroke-linecap="round" fill="none" class="steam-path-3"/>
+
+                        <!-- Crispy Golden Fries Sticks -->
+                        <g transform="translate(0, 6)">
+                            <rect x="102" y="48" width="18" height="90" rx="5" transform="rotate(-18 110 90)" fill="url(#fry2_${uid})" stroke="#78350f" stroke-width="1"/>
+                            <rect x="118" y="34" width="19" height="100" rx="5" transform="rotate(-9 125 85)" fill="url(#fry1_${uid})" stroke="#92400e" stroke-width="1"/>
+                            <rect x="138" y="26" width="20" height="105" rx="6" transform="rotate(-2 148 80)" fill="url(#fry2_${uid})" stroke="#78350f" stroke-width="1"/>
+                            <rect x="158" y="24" width="20" height="108" rx="6" transform="rotate(4 168 80)" fill="url(#fry1_${uid})" stroke="#92400e" stroke-width="1"/>
+                            <rect x="178" y="32" width="19" height="100" rx="5" transform="rotate(12 186 85)" fill="url(#fry2_${uid})" stroke="#78350f" stroke-width="1"/>
+                            <rect x="195" y="45" width="18" height="92" rx="5" transform="rotate(21 202 90)" fill="url(#fry1_${uid})" stroke="#92400e" stroke-width="1"/>
+                            <!-- Front Layer Fries -->
+                            <rect x="128" y="44" width="19" height="88" rx="5" transform="rotate(-5 136 90)" fill="url(#fry1_${uid})"/>
+                            <rect x="150" y="38" width="21" height="92" rx="6" fill="url(#fry1_${uid})"/>
+                            <rect x="171" y="44" width="19" height="88" rx="5" transform="rotate(8 180 90)" fill="url(#fry2_${uid})"/>
+                            <!-- Paprika & Sea Salt Specks -->
+                            <circle cx="145" cy="55" r="2" fill="#dc2626"/>
+                            <circle cx="164" cy="48" r="2.2" fill="#dc2626"/>
+                            <circle cx="182" cy="64" r="1.8" fill="#dc2626"/>
+                            <circle cx="132" cy="70" r="1.8" fill="#ffffff"/>
+                            <circle cx="158" cy="74" r="2" fill="#dc2626"/>
+                            <circle cx="175" cy="54" r="1.5" fill="#ffffff"/>
+                        </g>
+
+                        <!-- Luxury Red & Gold Fries Holder Box -->
+                        <path d="M96 105 Q160 122 224 105 L206 188 Q160 198 114 188 Z" fill="url(#cup_${uid})" stroke="#ffbe0b" stroke-width="2.5"/>
+                        <path d="M104 120 Q160 135 216 120" fill="none" stroke="#ffbe0b" stroke-opacity="0.5" stroke-width="1.5"/>
+                        <circle cx="160" cy="152" r="20" fill="#140307" stroke="#ffbe0b" stroke-width="2"/>
+                        <text x="160" y="157" text-anchor="middle" fill="#ffbe0b" font-family="Unbounded" font-weight="900" font-size="11">GOLD</text>
+
+                        <!-- Dip Sauce Cup on the Side -->
+                        <g transform="translate(215, 148)">
+                            <ellipse cx="26" cy="24" rx="24" ry="12" fill="#78350f"/>
+                            <ellipse cx="26" cy="20" rx="24" ry="11" fill="#1f090d" stroke="#ffbe0b" stroke-width="1.8"/>
+                            <ellipse cx="26" cy="19" rx="19" ry="8" fill="#fde68a"/>
+                            <path d="M18 19 Q26 14 34 19" stroke="#f59e0b" stroke-width="2" fill="none"/>
+                        </g>
+                    </svg>`;
+
+                case 'vip_certificate':
+                    // Luxury 3D Gold & Ruby Gift Card with Ribbon & Sparks
+                    return `
+                    <svg viewBox="0 0 320 220" class="w-full h-full dish-float select-none">
+                        <defs>
+                            <radialGradient id="certGlow_${uid}" cx="50%" cy="50%" r="52%">
+                                <stop offset="0%" stop-color="#ffbe0b" stop-opacity="0.5"/>
+                                <stop offset="60%" stop-color="#ff0055" stop-opacity="0.2"/>
+                                <stop offset="100%" stop-color="#140307" stop-opacity="0"/>
+                            </radialGradient>
+                            <linearGradient id="cardBg_${uid}" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#3b0718"/>
+                                <stop offset="50%" stop-color="#1f030b"/>
+                                <stop offset="100%" stop-color="#4c0519"/>
+                            </linearGradient>
+                            <linearGradient id="goldFoil_${uid}" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#fff3b0"/>
+                                <stop offset="45%" stop-color="#ffbe0b"/>
+                                <stop offset="100%" stop-color="#d97706"/>
+                            </linearGradient>
+                        </defs>
+                        <circle cx="160" cy="110" r="98" fill="url(#certGlow_${uid})"/>
+                        <!-- Tilted 3D Gift Card -->
+                        <g transform="translate(45, 36) rotate(-5 115 75)">
+                            <!-- Drop Shadow -->
+                            <rect x="6" y="10" width="230" height="136" rx="18" fill="#090104" opacity="0.7"/>
+                            <!-- Card Body -->
+                            <rect x="0" y="0" width="230" height="136" rx="18" fill="url(#cardBg_${uid})" stroke="url(#goldFoil_${uid})" stroke-width="3"/>
+                            <!-- Inner Gold Frame -->
+                            <rect x="10" y="10" width="210" height="116" rx="12" fill="none" stroke="#ffbe0b" stroke-opacity="0.35" stroke-width="1.2" stroke-dasharray="6,4"/>
+                            <!-- Golden Ribbon Vertical & Horizontal -->
+                            <rect x="172" y="0" width="24" height="136" fill="url(#goldFoil_${uid})" opacity="0.9"/>
+                            <!-- Gold Bow -->
+                            <circle cx="184" cy="42" r="14" fill="#ff3b00" stroke="#fff3b0" stroke-width="2.5"/>
+                            <path d="M162 32 Q184 42 162 54 Z" fill="url(#goldFoil_${uid})"/>
+                            <path d="M206 32 Q184 42 206 54 Z" fill="url(#goldFoil_${uid})"/>
+
+                            <!-- Card Typography -->
+                            <text x="24" y="38" fill="#ffe066" font-family="Unbounded" font-weight="900" font-size="13">VIP СЕРТИФИКАТ</text>
+                            <text x="24" y="56" fill="#fda4af" font-family="Inter" font-weight="700" font-size="9.5">ШАШЛЫК &amp; ШАУРМА • ЧЕХОВ</text>
+                            <rect x="24" y="76" width="115" height="34" rx="8" fill="url(#goldFoil_${uid})"/>
+                            <text x="81" y="99" text-anchor="middle" fill="#140307" font-family="Unbounded" font-weight="900" font-size="16">1000 ₽</text>
+                        </g>
+                        <!-- Sparkle Stars -->
+                        <circle cx="52" cy="48" r="3" fill="#fff3b0"/>
+                        <circle cx="276" cy="60" r="4" fill="#ffbe0b"/>
+                        <circle cx="260" cy="175" r="3" fill="#ff3b00"/>
+                    </svg>`;
+
+                case 'shawarma_grill':
+                case 'shawarma_pork':
+                case 'shawarma_cheese':
+                    // 3D Grilled Shawarma Wrap Cut-Open Showing Charcoal Meat, Fresh Tomatoes, Herbs & Dripping Sauce
+                    const isCheese = artType === 'shawarma_cheese';
+                    const isPork = artType === 'shawarma_pork';
+                    const lavashStart = isCheese ? '#fde047' : '#fde68a';
+                    const lavashEnd = isCheese ? '#ea580c' : '#d97706';
+                    const meatColor = isPork ? '#991b1b' : '#b45309';
+                    const sauceColor = isCheese ? '#facc15' : (isPork ? '#ef4444' : '#fffbeb');
+                    return `
+                    <svg viewBox="0 0 320 220" class="w-full h-full dish-float select-none">
+                        <defs>
+                            <radialGradient id="shGlow_${uid}" cx="50%" cy="52%" r="50%">
+                                <stop offset="0%" stop-color="#ff6b2b" stop-opacity="0.48"/>
+                                <stop offset="65%" stop-color="#ffbe0b" stop-opacity="0.15"/>
+                                <stop offset="100%" stop-color="#140307" stop-opacity="0"/>
+                            </radialGradient>
+                            <linearGradient id="lavash_${uid}" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="${lavashStart}"/>
+                                <stop offset="60%" stop-color="#f59e0b"/>
+                                <stop offset="100%" stop-color="${lavashEnd}"/>
+                            </linearGradient>
+                        </defs>
+                        <circle cx="160" cy="112" r="96" fill="url(#shGlow_${uid})"/>
+                        <!-- Steam -->
+                        <path d="M130 36 Q120 18 135 6" stroke="#ffe066" stroke-width="2.8" stroke-linecap="round" fill="none" class="steam-path-1"/>
+                        <path d="M185 32 Q195 14 180 4" stroke="#ffffff" stroke-width="2.8" stroke-linecap="round" fill="none" class="steam-path-2"/>
+
+                        <!-- Main Diagonal Grilled Shawarma Roll -->
+                        <g transform="translate(160, 114) rotate(-24)">
+                            <!-- Shadow -->
+                            <rect x="-82" y="-34" width="168" height="76" rx="34" fill="#090104" opacity="0.65"/>
+                            <!-- Lavash Body -->
+                            <rect x="-86" y="-42" width="172" height="78" rx="36" fill="url(#lavash_${uid})" stroke="#78350f" stroke-width="2.5"/>
+                            <!-- Charcoal Grill Stripes on Lavash -->
+                            <line x1="-45" y1="-38" x2="-25" y2="32" stroke="#451a03" stroke-width="5" stroke-linecap="round" opacity="0.75"/>
+                            <line x1="-10" y1="-38" x2="10" y2="32" stroke="#451a03" stroke-width="5" stroke-linecap="round" opacity="0.75"/>
+                            <line x1="25" y1="-38" x2="45" y2="32" stroke="#451a03" stroke-width="5" stroke-linecap="round" opacity="0.75"/>
+                            <line x1="58" y1="-34" x2="72" y2="24" stroke="#451a03" stroke-width="4.5" stroke-linecap="round" opacity="0.75"/>
+
+                            <!-- Open Top Cut Showing Juicy Filling -->
+                            <ellipse cx="-68" cy="-3" rx="24" ry="37" fill="#451a03" stroke="#fef3c7" stroke-width="3"/>
+                            <!-- Charcoal Roasted Meat Chunks -->
+                            <circle cx="-72" cy="-14" r="12" fill="${meatColor}"/>
+                            <circle cx="-60" cy="6" r="11" fill="#7c2d12"/>
+                            <circle cx="-76" cy="12" r="9" fill="${meatColor}"/>
+                            <!-- Fresh Tomatoes & Greens -->
+                            <circle cx="-58" cy="-16" r="8" fill="#ef4444"/>
+                            <circle cx="-78" cy="-2" r="7" fill="#22c55e"/>
+                            <circle cx="-65" cy="20" r="7" fill="#16a34a"/>
+                            <!-- Creamy Chef Sauce Swirl -->
+                            <path d="M-78 -10 Q-56 -4 -66 12 Q-74 22 -52 16" stroke="${sauceColor}" stroke-width="5" stroke-linecap="round" fill="none"/>
+
+                            <!-- Red Craft Wrapper at Bottom Right -->
+                            <path d="M18 -43 L74 -43 C94 -43 94 37 74 37 L18 37 Z" fill="#dc2626" stroke="#ffbe0b" stroke-width="2"/>
+                            <text x="54" y="3" text-anchor="middle" fill="#ffffff" font-family="Unbounded" font-weight="900" font-size="10" transform="rotate(90 54 3)">GRILL</text>
+                        </g>
+                    </svg>`;
+
+                case 'shashlik_pork':
+                case 'shashlik_chicken':
+                case 'lula_kebab':
+                    // Skewered Charcoal Meat over Glowing Embers with Red Onion Rings & Herbs
+                    const isLula = artType === 'lula_kebab';
+                    const isChicken = artType === 'shashlik_chicken';
+                    const chunkCol1 = isChicken ? '#f59e0b' : (isLula ? '#991b1b' : '#b91c1c');
+                    const chunkCol2 = isChicken ? '#b45309' : (isLula ? '#450a0a' : '#7f1d1d');
+                    return `
+                    <svg viewBox="0 0 320 220" class="w-full h-full dish-float select-none">
+                        <defs>
+                            <radialGradient id="fireGlow_${uid}" cx="50%" cy="65%" r="55%">
+                                <stop offset="0%" stop-color="#ff3b00" stop-opacity="0.6"/>
+                                <stop offset="55%" stop-color="#ffbe0b" stop-opacity="0.22"/>
+                                <stop offset="100%" stop-color="#140307" stop-opacity="0"/>
+                            </radialGradient>
+                            <linearGradient id="meatGrad_${uid}" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="${chunkCol1}"/>
+                                <stop offset="70%" stop-color="${chunkCol2}"/>
+                                <stop offset="100%" stop-color="#270909"/>
+                            </linearGradient>
+                        </defs>
+                        <!-- Glowing Charcoal Embers Base -->
+                        <circle cx="160" cy="122" r="98" fill="url(#fireGlow_${uid})"/>
+                        <ellipse cx="160" cy="182" rx="95" ry="16" fill="#450a0a" stroke="#ff3b00" stroke-width="1.5"/>
+                        <circle cx="115" cy="182" r="6" fill="#ffbe0b"/>
+                        <circle cx="155" cy="185" r="8" fill="#ff3b00"/>
+                        <circle cx="198" cy="180" r="6" fill="#fde047"/>
+
+                        <!-- Rising Smoke -->
+                        <path d="M115 52 Q105 30 122 14" stroke="#ffe066" stroke-width="2.5" stroke-linecap="round" fill="none" class="steam-path-1"/>
+                        <path d="M165 44 Q180 24 162 8" stroke="#ffffff" stroke-width="3" stroke-linecap="round" fill="none" class="steam-path-2"/>
+                        <path d="M210 54 Q220 32 205 16" stroke="#ff6b2b" stroke-width="2.5" stroke-linecap="round" fill="none" class="steam-path-3"/>
+
+                        <!-- Stainless Steel Skewer (Шампур) -->
+                        <line x1="32" y1="112" x2="290" y2="112" stroke="#e5e7eb" stroke-width="5" stroke-linecap="round"/>
+                        <circle cx="42" cy="112" r="12" fill="none" stroke="#fbbf24" stroke-width="4"/>
+
+                        ${isLula ? `
+                            <!-- Long Sculpted Lula-Kebab on Skewer -->
+                            <rect x="74" y="84" width="176" height="56" rx="26" fill="url(#meatGrad_${uid})" stroke="#450a0a" stroke-width="2.5"/>
+                            <path d="M98 86 Q110 112 98 138 M132 86 Q144 112 132 138 M166 86 Q178 112 166 138 M200 86 Q212 112 200 138" stroke="#1c0404" stroke-width="4" fill="none" opacity="0.7"/>
+                            <circle cx="115" cy="104" r="3" fill="#22c55e"/>
+                            <circle cx="155" cy="118" r="3.5" fill="#22c55e"/>
+                            <circle cx="188" cy="102" r="3" fill="#22c55e"/>
+                        ` : `
+                            <!-- Juicy Shashlik Meat Cubes & Grilled Veggies -->
+                            <rect x="72" y="80" width="44" height="62" rx="14" fill="url(#meatGrad_${uid})" stroke="#451a03" stroke-width="2"/>
+                            <ellipse cx="122" cy="112" rx="7" ry="30" fill="#dc2626"/>
+                            <rect x="132" y="76" width="48" height="68" rx="16" fill="url(#meatGrad_${uid})" stroke="#451a03" stroke-width="2"/>
+                            <ellipse cx="186" cy="112" rx="7" ry="28" fill="#a855f7"/>
+                            <rect x="196" y="80" width="46" height="62" rx="14" fill="url(#meatGrad_${uid})" stroke="#451a03" stroke-width="2"/>
+                            <!-- Glossy Sear Highlights -->
+                            <path d="M84 92 L102 92 M146 88 L166 88 M208 92 L226 92" stroke="#fde68a" stroke-width="3" stroke-linecap="round" opacity="0.65"/>
+                        `}
+
+                        <!-- Pickled Red Onion Rings & Fresh Herbs Garnish -->
+                        <circle cx="95" cy="154" r="14" fill="none" stroke="#e879f9" stroke-width="3.5"/>
+                        <circle cx="225" cy="152" r="15" fill="none" stroke="#c084fc" stroke-width="3.5"/>
+                        <circle cx="150" cy="156" r="7" fill="#22c55e"/>
+                        <circle cx="168" cy="158" r="6" fill="#16a34a"/>
+                    </svg>`;
+
+                case 'sauce_garlic':
+                case 'sauce_satsibeli':
+                    const isGarlic = artType === 'sauce_garlic';
+                    const bowlSauceTop = isGarlic ? '#fffbeb' : '#ef4444';
+                    const bowlSauceMid = isGarlic ? '#fde68a' : '#b91c1c';
+                    return `
+                    <svg viewBox="0 0 320 220" class="w-full h-full dish-float select-none">
+                        <defs>
+                            <radialGradient id="scGlow_${uid}" cx="50%" cy="55%" r="48%">
+                                <stop offset="0%" stop-color="${isGarlic ? '#ffbe0b' : '#ff3b00'}" stop-opacity="0.45"/>
+                                <stop offset="100%" stop-color="#140307" stop-opacity="0"/>
+                            </radialGradient>
+                            <linearGradient id="sauceFill_${uid}" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="${bowlSauceTop}"/>
+                                <stop offset="100%" stop-color="${bowlSauceMid}"/>
+                            </linearGradient>
+                        </defs>
+                        <circle cx="160" cy="115" r="90" fill="url(#scGlow_${uid})"/>
+                        <!-- Ceramic Gastro Bowl -->
+                        <path d="M82 108 Q160 195 238 108 Z" fill="#1f060d" stroke="#ffbe0b" stroke-width="3"/>
+                        <ellipse cx="160" cy="105" rx="78" ry="28" fill="#2e0915" stroke="#ffbe0b" stroke-width="2.5"/>
+                        <!-- Rich Swirled Sauce -->
+                        <ellipse cx="160" cy="105" rx="68" ry="22" fill="url(#sauceFill_${uid})"/>
+                        <path d="M118 104 Q160 88 202 104 Q160 120 132 106" fill="none" stroke="${isGarlic ? '#d97706' : '#7f1d1d'}" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+                        <!-- Fresh Herbs & Spices on Top -->
+                        <circle cx="145" cy="100" r="4" fill="#16a34a"/>
+                        <circle cx="162" cy="105" r="5" fill="#22c55e"/>
+                        <circle cx="176" cy="99" r="3.5" fill="#15803d"/>
+                        <circle cx="152" cy="112" r="2" fill="#dc2626"/>
+                        <circle cx="170" cy="110" r="2" fill="#dc2626"/>
+                    </svg>`;
+
+                case 'coffee_cup':
+                case 'ayran_cup':
+                    const isCoffee = artType === 'coffee_cup';
+                    return `
+                    <svg viewBox="0 0 320 220" class="w-full h-full dish-float select-none">
+                        <defs>
+                            <radialGradient id="drGlow_${uid}" cx="50%" cy="55%" r="48%">
+                                <stop offset="0%" stop-color="${isCoffee ? '#ffbe0b' : '#38bdf8'}" stop-opacity="0.4"/>
+                                <stop offset="100%" stop-color="#140307" stop-opacity="0"/>
+                            </radialGradient>
+                            <linearGradient id="cupBody_${uid}" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="${isCoffee ? '#451a03' : '#f0f9ff'}"/>
+                                <stop offset="100%" stop-color="${isCoffee ? '#1c0a00' : '#bae6fd'}"/>
+                            </linearGradient>
+                        </defs>
+                        <circle cx="160" cy="115" r="90" fill="url(#drGlow_${uid})"/>
+                        ${isCoffee ? `
+                            <path d="M145 36 Q135 20 148 8" stroke="#fde68a" stroke-width="2.5" stroke-linecap="round" fill="none" class="steam-path-1"/>
+                            <path d="M175 34 Q185 18 172 6" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" fill="none" class="steam-path-2"/>
+                        ` : ''}
+                        <!-- Cup Body -->
+                        <path d="M115 62 L205 62 L192 184 Q160 194 128 184 Z" fill="url(#cupBody_${uid})" stroke="#ffbe0b" stroke-width="2.5"/>
+                        <!-- Coffee Sleeve / Label -->
+                        <path d="M120 102 L200 102 L196 146 L124 146 Z" fill="${isCoffee ? '#ff3b00' : '#0284c7'}" stroke="#ffbe0b" stroke-width="1.5"/>
+                        <text x="160" y="129" text-anchor="middle" fill="#ffffff" font-family="Unbounded" font-weight="900" font-size="11">${isCoffee ? 'COFFEE' : 'АЙРАН'}</text>
+                        <!-- Cup Lid / Creamy Foam -->
+                        <rect x="108" y="48" width="104" height="16" rx="6" fill="${isCoffee ? '#ffbe0b' : '#ffffff'}" stroke="#78350f" stroke-width="1.5"/>
+                    </svg>`;
+            }
+            return '';
+        }
+
+        const menuItems = [
+            {
+                id: 'sh_1',
+                category: 'shawarma',
+                artType: 'shawarma_grill',
+                name: 'Шаурма «Фирменная на углях»',
+                desc: 'Мясо куриного шашлыка прямо с углей, свежие томаты, огурцы, хрустящая капуста и два авторских соуса шефа. Сочная и не разваливается!',
+                price: 260,
+                weight: '400 г',
+                badge: 'Хит станции'
+            },
+            {
+                id: 'sh_2',
+                category: 'shawarma',
+                artType: 'shawarma_pork',
+                name: 'Шаурма «Кавказская со свининой»',
+                desc: 'Настоящий свиной шашлык с дымком, маринованный красный лучок, свежая зелень, томатный сацибели и чесночный соус в хрустящем лаваше.',
+                price: 300,
+                weight: '430 г',
+                badge: 'С мангала'
+            },
+            {
+                id: 'sh_3',
+                category: 'shawarma',
+                artType: 'shawarma_cheese',
+                name: 'Шаурма «Сырный Богатырь» XXL',
+                desc: 'Двойная порция мяса на углях, сырный лаваш, тягучая моцарелла и чеддер, свежие овощи и фирменный соус Александра.',
+                price: 350,
+                weight: '520 г',
+                badge: 'Гигант'
+            },
+            {
+                id: 'mk_1',
+                category: 'shashlik',
+                artType: 'shashlik_pork',
+                name: 'Шашлык из мраморной свиной шейки',
+                desc: 'Отборная фермерская шейка на березовых углях. Подается с горячим лавашом, маринованным красным луком и свежей кинзой.',
+                price: 420,
+                weight: '250 г',
+                badge: 'Премиум'
+            },
+            {
+                id: 'mk_2',
+                category: 'shashlik',
+                artType: 'shashlik_chicken',
+                name: 'Шашлык куриный золотистый',
+                desc: 'Сочные кусочки куриного филе в фирменном маринаде на живом огне. Румяная корочка и невероятный аромат дымка.',
+                price: 350,
+                weight: '250 г',
+                badge: 'Нежный'
+            },
+            {
+                id: 'mk_3',
+                category: 'shashlik',
+                artType: 'lula_kebab',
+                name: 'Люля-кебаб на углях от Шефа',
+                desc: 'Рубленое мясо со специями и зеленью, обжаренное на широком шампуре до румяной корочки. Идеально с соусом Сацибели.',
+                price: 380,
+                weight: '220 г',
+                badge: 'Огонь'
+            },
+            {
+                id: 'sn_1',
+                category: 'snacks',
+                artType: 'fries_gold',
+                name: 'Картофель Фри Голд',
+                desc: 'Хрустящие золотистые ломтики картофеля с ароматной паприкой. Отлично сочетаются с сырным и чесночным соусом.',
+                price: 150,
+                weight: '150 г',
+                badge: 'Хруст'
+            },
+            {
+                id: 'sn_2',
+                category: 'certs',
+                artType: 'vip_certificate',
+                name: 'VIP Подарочный сертификат',
+                desc: 'Стильный сертификат на любую продукцию нашего гастро-гриль бара в Чехове — лучший подарок любителям мяса на углях.',
+                price: 1000,
+                weight: 'Номинал',
+                badge: 'Подарок'
+            },
+            {
+                id: 'sc_1',
+                category: 'sauces',
+                artType: 'sauce_garlic',
+                name: 'Легендарный Чесночный соус Шефа',
+                desc: 'Тот самый соус, который гости называют «отдельной темой и шиком»! Густой, сливочно-чесночный с секретными травами.',
+                price: 60,
+                weight: '70 г',
+                badge: 'Просто шик'
+            },
+            {
+                id: 'sc_2',
+                category: 'sauces',
+                artType: 'sauce_satsibeli',
+                name: 'Кавказский Сацибели с кинзой',
+                desc: 'Яркий томатный соус к шашлыку и люля-кебабу со свежей зеленью, чесноком и кавказскими специями.',
+                price: 60,
+                weight: '70 г',
+                badge: 'К шашлыку'
+            },
+            {
+                id: 'dr_1',
+                category: 'drinks',
+                artType: 'coffee_cup',
+                name: 'Капучино / Латте с собой',
+                desc: 'Горячий зерновой кофе с бархатной молочной пенкой в удобном крафтовом стакане.',
+                price: 140,
+                weight: '300 мл',
+                badge: 'Зерновой'
+            },
+            {
+                id: 'dr_2',
+                category: 'drinks',
+                artType: 'ayran_cup',
+                name: 'Домашний Айран ледяной',
+                desc: 'Освежающий кисломолочный напиток — идеальный баланс к сочному горячему шашлыку и шаурме.',
+                price: 100,
+                weight: '500 мл',
+                badge: 'Освежает'
+            }
+        ];
+
+        function renderHeroVisual() {
+            const heroContainer = document.getElementById('heroIllustrationContainer');
+            if (!heroContainer) return;
+            heroContainer.innerHTML = getAutonomousDishArt('shawarma_grill', 'hero_showcase');
+        }
+
+        function renderLiveBuilderSvg() {
+            const previewEl = document.getElementById('builderLiveSvgPreview');
+            if (!previewEl) return;
+
+            const lavashColors = {
+                classic: ['#fde68a', '#d97706'],
+                cheese: ['#fde047', '#ea580c'],
+                garlic: ['#dcfce7', '#ca8a04']
+            }[builderState.lavash.id] || ['#fde68a', '#d97706'];
+
+            const meatColor = {
+                chicken: '#d97706',
+                pork: '#991b1b',
+                beef: '#7f1d1d',
+                mix: '#b91c1c'
+            }[builderState.meat.id] || '#d97706';
+
+            const sauceColor = {
+                garlic_craft: '#fffbeb',
+                satsibeli: '#ef4444',
+                firm_duet: '#fb923c',
+                cheese_smoky: '#facc15'
+            }[builderState.sauce.id] || '#fffbeb';
+
+            const extrasBadges = builderState.extras.length;
+
+            previewEl.innerHTML = `
+                <svg viewBox="0 0 300 180" class="w-full h-full dish-float select-none">
+                    <defs>
+                        <radialGradient id="liveBuilderGlow" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#ffbe0b" stop-opacity="0.42"/>
+                            <stop offset="100%" stop-color="#140307" stop-opacity="0"/>
+                        </radialGradient>
+                        <linearGradient id="liveLavashGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="${lavashColors[0]}"/>
+                            <stop offset="100%" stop-color="${lavashColors[1]}"/>
+                        </linearGradient>
+                    </defs>
+                    <circle cx="150" cy="90" r="82" fill="url(#liveBuilderGlow)"/>
+                    <g transform="translate(150, 92) rotate(-18)">
+                        <rect x="-80" y="-34" width="160" height="68" rx="32" fill="url(#liveLavashGrad)" stroke="#78350f" stroke-width="2.5"/>
+                        <line x1="-35" y1="-30" x2="-18" y2="28" stroke="#451a03" stroke-width="4.5" stroke-linecap="round" opacity="0.7"/>
+                        <line x1="0" y1="-30" x2="17" y2="28" stroke="#451a03" stroke-width="4.5" stroke-linecap="round" opacity="0.7"/>
+                        <line x1="35" y1="-30" x2="52" y2="28" stroke="#451a03" stroke-width="4.5" stroke-linecap="round" opacity="0.7"/>
+                        <!-- Open Filling End -->
+                        <ellipse cx="-64" cy="0" rx="22" ry="33" fill="#270909" stroke="#fef3c7" stroke-width="2.5"/>
+                        <circle cx="-68" cy="-10" r="11" fill="${meatColor}"/>
+                        <circle cx="-56" cy="8" r="10" fill="${meatColor}"/>
+                        <circle cx="-56" cy="-12" r="7" fill="#ef4444"/>
+                        <circle cx="-72" cy="10" r="7" fill="#22c55e"/>
+                        <path d="M-74 -6 Q-54 0 -64 14" stroke="${sauceColor}" stroke-width="5" stroke-linecap="round" fill="none"/>
+                    </g>
+                    ${extrasBadges > 0 ? `
+                        <g transform="translate(215, 22)">
+                            <rect x="0" y="0" width="72" height="24" rx="12" fill="#10b981"/>
+                            <text x="36" y="16" text-anchor="middle" fill="#052e16" font-family="Unbounded" font-weight="900" font-size="10">+${extrasBadges} ТОПП.</text>
+                        </g>
+                    ` : ''}
+                </svg>
+            `;
+        }
+
+        const reviewsList = [
+            {
+                author: 'Константин Ким',
+                date: '2 июня',
+                stars: 5,
+                tag: 'Шаурма, Шашлык и Соусы',
+                text: 'Очень вкусная шаурма и шашлык под заказ. Делают своевременно, соусы отдельная тема, просто шик. Персонал вежлив, общителен и лоялен. Раньше был 1 Александр, теперь появился стажёр. Видно как работают, как обучает. Просто нет слов. Лучшая шаурмечная на остановке, потому что можно и вкусно поесть и поднять настроение... Советую всем!'
+            },
+            {
+                author: 'Миша Грищенко',
+                date: '20 мая',
+                stars: 5,
+                tag: 'Сочная и не разваливается',
+                text: 'Лучшее место в Чехове! Выбор большой, шаурма сочная и не разваливается. Респект'
+            },
+            {
+                author: 'Александр Кутовой',
+                date: '18 мая',
+                stars: 5,
+                tag: 'Свежее мясо с мангала',
+                text: 'Лучшая шаурма на станции Чехов. Мясо свежее с мангала, овощи свежие. По сравнению с другими заведениями это самое лучшее'
+            },
+            {
+                author: 'Looser32.dll',
+                date: '7 мая',
+                stars: 5,
+                tag: 'Проверено',
+                text: 'Очень вкусная шаурма, советую всем попробовать!'
+            }
+        ];
+
+        let cart = [];
+        let activeCategory = 'all';
+        let orderMode = 'pickup';
+
+        function renderBuilder() {
+            const lavashContainer = document.getElementById('builderLavashGroup');
+            lavashContainer.innerHTML = builderData.lavash.map(item => {
+                const active = builderState.lavash.id === item.id;
+                return `
+                    <button onclick="selectBuilderOption('lavash', '${item.id}')" class="p-4 rounded-2xl text-left border transition-all ${active ? 'bg-gradient-to-br from-flame-500/30 to-gold-400/20 border-gold-400 text-white shadow-lg' : 'bg-ruby-950/60 border-white/10 text-rose-100 hover:border-gold-400/50'}">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="font-display font-bold text-xs sm:text-sm">${item.name}</span>
+                            <span class="text-xs font-black ${active ? 'text-gold-300' : 'text-rose-200/70'}">${item.price === 0 ? 'База' : '+' + item.price + ' ₽'}</span>
+                        </div>
+                        <p class="text-[11px] text-rose-200/70">${item.desc}</p>
+                    </button>
+                `;
+            }).join('');
+
+            const meatContainer = document.getElementById('builderMeatGroup');
+            meatContainer.innerHTML = builderData.meat.map(item => {
+                const active = builderState.meat.id === item.id;
+                return `
+                    <button onclick="selectBuilderOption('meat', '${item.id}')" class="p-4 rounded-2xl text-left border transition-all ${active ? 'bg-gradient-to-br from-flame-500/30 to-gold-400/20 border-gold-400 text-white shadow-lg' : 'bg-ruby-950/60 border-white/10 text-rose-100 hover:border-gold-400/50'}">
+                        <span class="inline-block text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-gold-400 text-ruby-950 mb-2">${item.badge}</span>
+                        <div class="font-display font-bold text-xs sm:text-sm">${item.name}</div>
+                        <p class="text-[11px] text-rose-200/70 mt-1 mb-2">${item.desc}</p>
+                        <div class="text-sm font-display font-black text-gold-300">${item.price} ₽</div>
+                    </button>
+                `;
+            }).join('');
+
+            const sauceContainer = document.getElementById('builderSauceGroup');
+            sauceContainer.innerHTML = builderData.sauce.map(item => {
+                const active = builderState.sauce.id === item.id;
+                return `
+                    <button onclick="selectBuilderOption('sauce', '${item.id}')" class="p-4 rounded-2xl text-left border transition-all ${active ? 'bg-gradient-to-br from-flame-500/30 to-gold-400/20 border-gold-400 text-white shadow-lg' : 'bg-ruby-950/60 border-white/10 text-rose-100 hover:border-gold-400/50'}">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="font-display font-bold text-xs">${item.name}</span>
+                            <span class="text-xs font-black text-gold-300">+${item.price} ₽</span>
+                        </div>
+                        <p class="text-[11px] text-rose-200/70">${item.desc}</p>
+                    </button>
+                `;
+            }).join('');
+
+            const extrasContainer = document.getElementById('builderExtrasGroup');
+            extrasContainer.innerHTML = builderData.extras.map(item => {
+                const active = builderState.extras.some(e => e.id === item.id);
+                return `
+                    <button onclick="toggleBuilderExtra('${item.id}')" class="p-3.5 rounded-2xl text-left border transition-all flex items-center justify-between gap-2 ${active ? 'bg-gradient-to-r from-emerald-500/25 to-teal-500/20 border-emerald-400 text-white shadow-md' : 'bg-ruby-950/60 border-white/10 text-rose-100 hover:border-gold-400/40'}">
+                        <div>
+                            <div class="font-bold text-xs">${item.name}</div>
+                            <div class="text-xs text-gold-300 font-extrabold mt-0.5">+${item.price} ₽</div>
+                        </div>
+                        <i class="ph-fill ${active ? 'ph-check-circle text-emerald-400' : 'ph-plus-circle text-rose-200/50'} text-xl shrink-0"></i>
+                    </button>
+                `;
+            }).join('');
+
+            document.getElementById('summaryLavash').textContent = builderState.lavash.name;
+            document.getElementById('summaryMeat').textContent = builderState.meat.name;
+            document.getElementById('summarySauce').textContent = builderState.sauce.name;
+
+            const extrasSummaryEl = document.getElementById('summaryExtras');
+            if (builderState.extras.length === 0) {
+                extrasSummaryEl.innerHTML = '<span class="text-xs text-rose-200/50 italic">Без дополнительных топпингов</span>';
+            } else {
+                extrasSummaryEl.innerHTML = builderState.extras.map(e => `
+                    <span class="px-2.5 py-1 rounded-lg bg-gold-400/20 border border-gold-400/40 text-gold-300 text-xs font-bold">${e.name}</span>
+                `).join('');
+            }
+
+            document.getElementById('builderTotalPrice').textContent = calculateBuilderPrice() + ' ₽';
+            renderLiveBuilderSvg();
+        }
+
+        function calculateBuilderPrice() {
+            const extrasSum = builderState.extras.reduce((acc, item) => acc + item.price, 0);
+            return builderState.lavash.price + builderState.meat.price + builderState.sauce.price + extrasSum;
+        }
+
+        function selectBuilderOption(group, id) {
+            const found = builderData[group].find(i => i.id === id);
+            if (found) {
+                builderState[group] = found;
+                renderBuilder();
+            }
+        }
+
+        function toggleBuilderExtra(id) {
+            const idx = builderState.extras.findIndex(e => e.id === id);
+            if (idx > -1) {
+                builderState.extras.splice(idx, 1);
+            } else {
+                const item = builderData.extras.find(e => e.id === id);
+                if (item) builderState.extras.push(item);
+            }
+            renderBuilder();
+        }
+
+        function addCustomShawarmaToCart() {
+            const price = calculateBuilderPrice();
+            const extrasNames = builderState.extras.length > 0 
+                ? ' + ' + builderState.extras.map(e => e.name).join(', ')
+                : '';
+            addToCartObject({
+                id: 'custom_' + Date.now(),
+                name: `VIP-Шаурма (${builderState.meat.name})`,
+                details: `${builderState.lavash.name}, соус: ${builderState.sauce.name}${extrasNames}`,
+                price: price,
+                qty: 1
+            });
+        }
+
+        function renderMenu() {
+            const searchQuery = document.getElementById('menuSearchInput').value.trim().toLowerCase();
+            const grid = document.getElementById('menuGrid');
+
+            const filtered = menuItems.filter(item => {
+                const matchesCat = activeCategory === 'all' || item.category === activeCategory;
+                const matchesSearch = item.name.toLowerCase().includes(searchQuery) || item.desc.toLowerCase().includes(searchQuery);
+                return matchesCat && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-14 crystal-card rounded-3xl">
+                        <p class="text-rose-200 text-sm font-bold">Блюдо не найдено. Попробуйте выбрать другую категорию.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(item => `
+                <div class="tilt-card crystal-card rounded-3xl overflow-hidden flex flex-col justify-between group">
+                    <div class="tilt-glare"></div>
+                    <div>
+                        <div class="relative h-52 bg-gradient-to-b from-[#380816] via-[#21040c] to-[#120206] overflow-hidden border-b border-gold-400/20">
+                            <!-- 100% Autonomous Instant 3D SVG Art or Custom Uploaded Photo -->
+                            <div class="w-full h-full flex items-center justify-center">
+                                ${getAutonomousDishArt(item.artType, item.id)}
+                            </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-ruby-950/90 via-transparent to-transparent pointer-events-none"></div>
+                            <div class="absolute top-3 left-3 px-3 py-1 rounded-full bg-gradient-to-r from-gold-400 to-flame-500 text-ruby-950 text-[11px] font-display font-black uppercase shadow-lg">
+                                ${item.badge}
+                            </div>
+                            <button onclick="triggerPhotoUpload('${item.id}')" title="Загрузить свое фото блюда" class="absolute top-3 right-3 z-20 px-2.5 py-1 rounded-lg bg-ruby-950/80 hover:bg-gold-400 hover:text-ruby-950 text-gold-300/90 border border-gold-400/30 text-[11px] font-bold flex items-center gap-1 backdrop-blur-md transition-all">
+                                <i class="ph-bold ph-camera"></i> Фото
+                            </button>
+                            <div class="absolute bottom-3 right-3 px-2.5 py-1 rounded-lg bg-ruby-950/90 border border-gold-400/30 text-gold-300 text-xs font-bold">
+                                ${item.weight}
+                            </div>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-display font-bold text-white text-base leading-snug mb-2 group-hover:text-gold-300 transition-colors">${item.name}</h3>
+                            <p class="text-xs text-rose-100/80 leading-relaxed">${item.desc}</p>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0 flex items-center justify-between gap-2 relative z-10">
+                        <span class="font-display font-black text-xl text-gold-300">${item.price} ₽</span>
+                        <button onclick="addMenuItemToCart('${item.id}')" class="px-5 py-2.5 rounded-xl btn-liquid-fire text-white font-display font-bold text-xs uppercase tracking-wider flex items-center gap-1.5">
+                            <i class="ph-bold ph-plus"></i> В заказ
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            bind3DTiltCards();
+        }
+
+        function setCategory(cat) {
+            activeCategory = cat;
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                if (btn.dataset.cat === cat) {
+                    btn.className = 'cat-btn px-6 py-3 rounded-2xl font-display font-bold text-xs uppercase tracking-wider whitespace-nowrap transition-all btn-liquid-fire text-white';
+                } else {
+                    btn.className = 'cat-btn px-6 py-3 rounded-2xl font-display font-bold text-xs uppercase tracking-wider whitespace-nowrap transition-all crystal-card text-rose-100 hover:text-gold-300';
+                }
+            });
+            renderMenu();
+        }
+
+        function filterMenu() {
+            renderMenu();
+        }
+
+        function renderReviews() {
+            const grid = document.getElementById('reviewsGrid');
+            grid.innerHTML = reviewsList.map(r => `
+                <div class="tilt-card crystal-card p-7 rounded-3xl flex flex-col justify-between space-y-4">
+                    <div class="tilt-glare"></div>
+                    <div class="space-y-3.5">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3.5">
+                                <div class="w-12 h-12 rounded-2xl btn-liquid-fire text-white font-display font-black flex items-center justify-center text-base shadow-md">
+                                    ${r.author.charAt(0).toUpperCase()}
+                                </div>
+                                <div>
+                                    <div class="font-display font-bold text-white text-sm">${r.author}</div>
+                                    <div class="text-xs text-gold-300/80">${r.date} • Знаток города</div>
+                                </div>
+                            </div>
+                            <span class="px-3 py-1 rounded-full bg-gold-400/20 border border-gold-400/40 text-gold-300 text-xs font-black">
+                                ${'★'.repeat(r.stars)}
+                            </span>
+                        </div>
+                        <p class="text-sm text-rose-50 leading-relaxed font-medium">«${r.text}»</p>
+                    </div>
+                    <div class="pt-3.5 border-t border-gold-400/20 flex items-center justify-between text-xs">
+                        <span class="text-emerald-400 font-bold flex items-center gap-1"><i class="ph-fill ph-SealCheck"></i> Проверенный отзыв Яндекс Карт</span>
+                        <span class="text-gold-300 font-semibold">${r.tag}</span>
+                    </div>
+                </div>
+            `).join('');
+
+            bind3DTiltCards();
+        }
+
+        function toggleReviewModal(show) {
+            const modal = document.getElementById('reviewModal');
+            modal.classList.toggle('hidden', !show);
+            modal.classList.toggle('flex', show);
+        }
+
+        function addNewReview() {
+            const author = document.getElementById('newReviewAuthor').value.trim() || 'Гость Гриль-Бара';
+            const stars = parseInt(document.getElementById('newReviewStars').value, 10);
+            const text = document.getElementById('newReviewText').value.trim();
+
+            if (!text) {
+                showToast('Пожалуйста, напишите пару слов о ваших впечатлениях');
+                return;
+            }
+
+            reviewsList.unshift({
+                author,
+                date: 'Сегодня',
+                stars,
+                tag: 'Гость сайта',
+                text
+            });
+
+            document.getElementById('newReviewAuthor').value = '';
+            document.getElementById('newReviewText').value = '';
+            toggleReviewModal(false);
+            renderReviews();
+            showToast('Спасибо! Ваш отзыв добавлен на страницу');
+        }
+
+        function addMenuItemToCart(id) {
+            const item = menuItems.find(m => m.id === id);
+            if (!item) return;
+            addToCartObject({
+                id: item.id,
+                name: item.name,
+                details: item.weight,
+                price: item.price,
+                qty: 1
+            });
+        }
+
+        function quickAddHeroHit() {
+            addToCartObject({
+                id: 'hero_hit',
+                name: 'Шаурма «Дымный Шеф» XXL на углях',
+                details: '430 г • Двойной соус шефа',
+                price: 290,
+                qty: 1
+            });
+        }
+
+        function addToCartObject(newItem) {
+            const existing = cart.find(c => c.id === newItem.id);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push(newItem);
+            }
+            updateCartUI();
+            showToast(`«${newItem.name}» в вашем заказе!`);
+        }
+
+        function changeCartQty(id, delta) {
+            const idx = cart.findIndex(c => c.id === id);
+            if (idx === -1) return;
+            cart[idx].qty += delta;
+            if (cart[idx].qty <= 0) {
+                cart.splice(idx, 1);
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const totalSum = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
+            const totalCount = cart.reduce((acc, item) => acc + item.qty, 0);
+
+            document.getElementById('headerCartTotal').textContent = totalSum + ' ₽';
+            document.getElementById('drawerCartTotal').textContent = totalSum + ' ₽';
+
+            const badge = document.getElementById('headerCartBadge');
+            if (totalCount > 0) {
+                badge.textContent = totalCount;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+
+            const container = document.getElementById('cartItemsContainer');
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-14 space-y-3">
+                        <div class="w-16 h-16 rounded-2xl bg-ruby-900 border border-gold-400/30 text-gold-400 mx-auto flex items-center justify-center text-3xl">
+                            <i class="ph-fill ph-fire"></i>
+                        </div>
+                        <div class="text-sm font-display font-bold text-white">Мангал ждет вашего заказа</div>
+                        <p class="text-xs text-rose-200/70 max-w-xs mx-auto">
+                            Добавьте шаурму на углях, шашлык или соберите свой VIP-рецепт в 3D-конструкторе!
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = cart.map(item => `
+                <div class="crystal-card p-4 rounded-2xl flex items-center justify-between gap-3">
+                    <div class="min-w-0">
+                        <div class="font-display font-bold text-white text-xs sm:text-sm truncate">${item.name}</div>
+                        <div class="text-[11px] text-rose-200/70 truncate">${item.details}</div>
+                        <div class="text-sm font-display font-black text-gold-300 mt-1">${item.price * item.qty} ₽</div>
+                    </div>
+                    <div class="flex items-center gap-2 bg-ruby-950 px-2.5 py-1.5 rounded-xl border border-gold-400/30 shrink-0">
+                        <button onclick="changeCartQty('${item.id}', -1)" class="w-6 h-6 rounded-lg hover:bg-white/10 text-white flex items-center justify-center font-bold">-</button>
+                        <span class="text-xs font-display font-bold text-gold-300 w-4 text-center">${item.qty}</span>
+                        <button onclick="changeCartQty('${item.id}', 1)" class="w-6 h-6 rounded-lg hover:bg-white/10 text-gold-300 flex items-center justify-center font-bold">+</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleCart(open) {
+            const drawer = document.getElementById('cartDrawer');
+            const backdrop = document.getElementById('cartDrawerBackdrop');
+            if (open) {
+                backdrop.classList.remove('hidden');
+                setTimeout(() => backdrop.classList.remove('opacity-0'), 10);
+                drawer.classList.remove('translate-x-full');
+            } else {
+                backdrop.classList.add('opacity-0');
+                drawer.classList.add('translate-x-full');
+                setTimeout(() => backdrop.classList.add('hidden'), 300);
+            }
+        }
+
+        function openTrainPreorder() {
+            setOrderMode('pickup');
+            document.getElementById('orderTimingSelect').value = 'К прибытию электрички (через 20 мин)';
+            if (cart.length === 0) {
+                quickAddHeroHit();
+            }
+            toggleCart(true);
+        }
+
+        function setOrderMode(mode) {
+            orderMode = mode;
+            const pickupBtn = document.getElementById('modePickupBtn');
+            const deliveryBtn = document.getElementById('modeDeliveryBtn');
+            const addressInput = document.getElementById('orderAddressInput');
+            const label = document.getElementById('timeOrAddressLabel');
+
+            if (mode === 'pickup') {
+                pickupBtn.className = 'py-2.5 px-3 rounded-xl text-xs font-display font-bold transition-all btn-liquid-fire text-white';
+                deliveryBtn.className = 'py-2.5 px-3 rounded-xl text-xs font-display font-bold transition-all text-rose-200/70 hover:text-white';
+                addressInput.classList.add('hidden');
+                label.textContent = 'К какому времени разжечь угли?';
+            } else {
+                deliveryBtn.className = 'py-2.5 px-3 rounded-xl text-xs font-display font-bold transition-all btn-liquid-fire text-white';
+                pickupBtn.className = 'py-2.5 px-3 rounded-xl text-xs font-display font-bold transition-all text-rose-200/70 hover:text-white';
+                addressInput.classList.remove('hidden');
+                label.textContent = 'Время и адрес доставки по г. Чехов:';
+            }
+        }
+
+        function submitOrder() {
+            if (cart.length === 0) {
+                showToast('Добавьте блюда в предзаказ!');
+                return;
+            }
+            const name = document.getElementById('orderClientName').value.trim() || 'Гость';
+            const phone = document.getElementById('orderClientPhone').value.trim() || 'Не указан';
+            const timing = document.getElementById('orderTimingSelect').value;
+            const address = document.getElementById('orderAddressInput').value.trim();
+            const total = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
+
+            const itemsLines = cart.map((item, idx) => `${idx + 1}. ${item.name} (${item.qty} шт.) — ${item.price * item.qty} ₽`).join('\n');
+            const modeText = orderMode === 'pickup' 
+                ? `Самовывоз (ст. Чехов, Вокзальная пл.)\nВремя: ${timing}` 
+                : `Доставка по Чехову: ${address || 'Уточнить по телефону'}\nВремя: ${timing}`;
+
+            const receiptText = `🔥 VIP-ЗАКАЗ «ШАШЛЫК & ШАУРМА» (Чехов)\nИмя: ${name}\nТелефон: ${phone}\nФормат: ${modeText}\n\nБлюда:\n${itemsLines}\n\nИТОГО: ${total} ₽`;
+
+            document.getElementById('orderReceiptPreview').textContent = receiptText;
+            document.getElementById('whatsappOrderLink').href = `https://wa.me/79251874705?text=${encodeURIComponent(receiptText)}`;
+
+            toggleCart(false);
+            const modal = document.getElementById('orderSuccessModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeOrderModal() {
+            const modal = document.getElementById('orderSuccessModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function copyPhoneNumber() {
+            const tempInput = document.createElement('input');
+            tempInput.value = '+79251874705';
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            showToast('Телефон +7 (925) 187-47-05 скопирован!');
+        }
+
+        let toastTimeout;
+        function showToast(msg) {
+            const toast = document.getElementById('toastNotification');
+            document.getElementById('toastMessage').textContent = msg;
+            toast.classList.remove('opacity-0', 'translate-y-4');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-4');
+            }, 2800);
+        }
+
+        window.onload = function () {
+            initThreeJSBackground();
+            renderHeroVisual();
+            renderBuilder();
+            renderMenu();
+            renderReviews();
+            updateCartUI();
+            bind3DTiltCards();
+        };
+    </script>
+</body>
+</html>
